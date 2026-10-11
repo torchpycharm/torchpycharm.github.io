@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://torchpycharm.github.io/sitemap-index.xml
