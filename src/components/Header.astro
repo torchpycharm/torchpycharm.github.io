@@ -4,7 +4,9 @@ import { getLocaleFromUrl, getSiteConfig, locales, localizePath } from '../confi
 const locale = getLocaleFromUrl(Astro.url);
 const siteConfig = getSiteConfig(locale);
 const otherLocale = locale === 'zh' ? 'en' : 'zh';
-const currentPath = Astro.url.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
+// The 404 page has no counterpart in the other language, so its switch goes to the home page.
+const isNotFoundPage = /^\/404(\/|\.html)?$/.test(Astro.url.pathname);
+const currentPath = isNotFoundPage ? '/' : Astro.url.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
 ---
 
 <header class="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-xl" transition:name="site-header" transition:animate="none">

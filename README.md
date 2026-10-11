@@ -15,6 +15,8 @@ npm run build    # 构建到 dist/
 npm run preview  # 预览构建结果
 ```
 
+构建后可以用 `node scripts/check-links.mjs` 检查站内链接和图片、视频路径有没有失效。
+
 ## 内容在哪里
 
 | 想改什么 | 位置 |

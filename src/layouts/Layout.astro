@@ -8,11 +8,13 @@ import '../styles/global.css';
 interface Props {
 	title?: string;
 	description?: string;
+	/** For pages without a real address of their own, such as the 404 page. */
+	noindex?: boolean;
 }
 
 const locale = getLocaleFromUrl(Astro.url);
 const siteConfig = getSiteConfig(locale);
-const { title = siteConfig.name, description = siteConfig.description } = Astro.props;
+const { title = siteConfig.name, description = siteConfig.description, noindex = false } = Astro.props;
 
 const pageTitle = title === siteConfig.name ? title : `${title} | ${siteConfig.name}`;
 const currentPath = (Astro.url.pathname.replace(/^\/en(?=\/|$)/, '') || '/').replace(/-en(?=\/?$)/, '');
@@ -38,16 +40,16 @@ const canonicalUrl = absoluteUrl(Astro.url.pathname);
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
-		<link rel="canonical" href={canonicalUrl} />
+		{noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonicalUrl} />}
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<meta property="og:title" content={pageTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content={canonicalUrl} />
+		{!noindex && <meta property="og:url" content={canonicalUrl} />}
 		<meta property="og:site_name" content={siteConfig.name} />
 		<meta property="og:image" content={absoluteUrl(siteConfig.avatar)} />
-		<link rel="alternate" hreflang="zh-CN" href={absoluteUrl(localizePath('zh', currentPath))} />
-		<link rel="alternate" hreflang="en" href={absoluteUrl(localizePath('en', currentPath))} />
+		{!noindex && <link rel="alternate" hreflang="zh-CN" href={absoluteUrl(localizePath('zh', currentPath))} />}
+		{!noindex && <link rel="alternate" hreflang="en" href={absoluteUrl(localizePath('en', currentPath))} />}
 		<ClientRouter />
 		<title>{pageTitle}</title>
 	</head>
