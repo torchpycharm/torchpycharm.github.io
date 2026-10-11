@@ -15,9 +15,14 @@ export const locales = {
 
 export type Locale = keyof typeof locales;
 
+const githubUrl = "https://github.com/torchpycharm";
+const ecgRepoUrl = "https://github.com/torchpycharm/FYP_Embedded-Implementation-of-Data-Integrity-Detection-for-Wearable-ECG-Devices";
+const quadcopterRepoUrl = "https://github.com/Crystal-PuNK/Quadcopter_Group3";
+const guideVehicleRepoUrl = "https://github.com/huaji1hao/Pi7_RemoteControl_DeepLearning_Vehicle";
+const resumePdf = "/resume/FangyuZhang-CV.pdf";
+
 const shared = {
-	name: "Atlas",
-	email: "luckykevvv@gmail.com",
+	email: "2902134839@qq.com",
 	emailIcon: "@",
 	avatar: "/avatar.png",
 	background: {
@@ -38,15 +43,56 @@ const shared = {
 		},
 	},
 	socials: [
-		{ label: "GitHub", href: "https://github.com/luckykevvv", icon: "GH" },
+		{ label: "GitHub", href: githubUrl, icon: "GH" },
 	],
 };
+
+const skillsZh = [
+	"C/C++",
+	"Python",
+	"Verilog HDL",
+	"ARM 汇编",
+	"Linux",
+	"STM32",
+	"Arduino",
+	"Raspberry Pi",
+	"Nordic nRF5340",
+	"Zephyr RTOS",
+	"FreeRTOS",
+	"μC/OS-II",
+	"USART / I²C / SPI / CAN",
+	"BLE",
+	"TensorFlow Lite Micro",
+	"PID 控制",
+	"Git",
+];
+
+const skillsEn = [
+	"C/C++",
+	"Python",
+	"Verilog HDL",
+	"ARM Assembly",
+	"Linux",
+	"STM32",
+	"Arduino",
+	"Raspberry Pi",
+	"Nordic nRF5340",
+	"Zephyr RTOS",
+	"FreeRTOS",
+	"μC/OS-II",
+	"USART / I²C / SPI / CAN",
+	"BLE",
+	"TensorFlow Lite Micro",
+	"PID Control",
+	"Git",
+];
 
 const siteConfigs = {
 	zh: {
 		...shared,
-		title: "学生 / 设计工程学习者",
-		description: "一个黑色系 Astro 个人网站模板，用来放课程记录、小项目、博客笔记、简历经历和个人链接。",
+		name: "张方宇",
+		title: "NUS 计算机工程硕士在读 · 嵌入式工程师",
+		description: "张方宇的个人网站：嵌入式软件、端侧机器学习（TinyML / 边缘计算）、RTOS、机器人与电机控制方向的项目、笔记和简历。",
 		nav: [
 			{ label: "首页", href: "/" },
 			{ label: "关于我", href: "/about" },
@@ -57,45 +103,47 @@ const siteConfigs = {
 			{ label: "联系", href: "/contact" },
 		],
 		quickLinks: [
-			{ label: "博客", href: "/blog", icon: "书" },
 			{ label: "项目", href: "/projects", icon: "作" },
-			{ label: "关于", href: "/about", icon: "我" },
+			{ label: "博客", href: "/blog", icon: "书" },
 			{ label: "简历", href: "/resume", icon: "历" },
-			{ label: "联系", href: "/contact", icon: "@" },
+			{ label: "GitHub", href: githubUrl, icon: "GH" },
 		],
 		ui: {
-			headerCta: "打个招呼",
+			headerCta: "发邮件",
 			projectCta: "查看项目 ->",
 			projectLiveCta: "访问项目",
 			projectRepoCta: "查看代码",
+			projectStackLabel: "技术栈",
+			projectVideosLabel: "视频",
+			projectGalleryLabel: "图集",
 			backToList: "返回列表",
 			socialCardCta: "查看主页",
 		},
 		home: {
-			eyebrowNote: "一个学生的主页入口，放作品、笔记和正在折腾的东西。",
-			headline: "把上课、折腾和突然冒出的想法都放在这里。",
-			intro: "这是一个更适合学生使用的 Astro 个人主页模板：可以放课程记录、项目作品、博客笔记，也可以塞一点只有自己觉得好玩的入口。",
+			eyebrowNote: "本科毕业于电子科技大学软件工程专业，现在新加坡国立大学读计算机工程硕士。",
+			headline: "在资源受限的\u200B硬件上，\u200B把算法\u200B真正跑起来。",
+			intro: "我做嵌入式软件、端侧机器学习和机器人控制：从底层驱动、RTOS 移植、电机控制，到把模型部署到 MCU 上做推理。这里放我的项目、笔记和简历。",
 			primaryCta: { label: "看看项目", href: "/projects" },
-			secondaryCta: { label: "打个招呼", href: "/contact" },
+			secondaryCta: { label: "查看简历", href: "/resume" },
 		},
 		pages: {
 			home: {
 				title: "首页",
-				description: "一个黑色系 Astro 个人网站模板。",
+				description: "张方宇的个人网站：嵌入式软件、端侧机器学习（TinyML / 边缘计算）、RTOS、机器人与电机控制方向的项目、笔记和简历。",
 				modules: [
 					{ type: "homeHero" },
 					{ type: "linkGrid", props: { items: [
-						{ label: "课程作业与学习记录", href: "/blog" },
-						{ label: "小项目和奇怪实验", href: "/projects" },
-						{ label: "设计练习与前端复盘", href: "/about" },
-						{ label: "博客、书签和日常入口", href: "/contact" },
+						"嵌入式软件",
+						"端侧机器学习 / TinyML",
+						"RTOS",
+						"机器人与电机控制",
 					] } },
 					{
 						type: "projectGrid",
 						props: {
-							kicker: "Small Builds",
-							title: "最近做的小项目",
-							description: "不一定成熟，也不一定有很大的目标，但每一个都记录了一点学习过程。",
+							kicker: "Projects",
+							title: "精选项目",
+							description: "每个项目都写清楚要解决的问题、最后的结果和实现过程。",
 							featuredOnly: true,
 							limit: 3,
 							columns: 3,
@@ -106,7 +154,7 @@ const siteConfigs = {
 						props: {
 							kicker: "Notes",
 							title: "最新笔记",
-							description: "课堂、前端、设计、生活观察，都可以变成 Markdown 里的碎碎念。",
+							description: "嵌入式、端侧机器学习和课程学习过程中的记录。",
 							limit: 3,
 						},
 					},
@@ -115,19 +163,20 @@ const siteConfigs = {
 			},
 			about: {
 				title: "关于我",
-				description: "关于学生个人主页、学习方向、技能和兴趣的介绍。",
+				description: "张方宇：新加坡国立大学计算机工程硕士在读，本科毕业于电子科技大学软件工程专业，方向为嵌入式软件、端侧机器学习、RTOS、机器人与电机控制。",
 				modules: [
 					{
 						type: "aboutIntro",
 						props: {
 							kicker: "About",
-							heading: "我在课程、代码和兴趣项目之间慢慢探索。",
-							intro: "这个模板适合介绍一个正在学习设计、前端、内容创作或任何个人兴趣方向的学生。",
+							heading: "做嵌入式软件，把算法落到真实硬件上。",
+							intro: "嵌入式软件 · 端侧机器学习（TinyML / 边缘计算）· RTOS · 机器人与电机控制",
 							profileLabel: "Profile",
-							profile: "喜欢把学到的东西做成页面、小工具和可以回头看的笔记。",
+							profile: "新加坡国立大学计算机工程硕士在读，本科毕业于电子科技大学软件工程专业。",
 							paragraphs: [
-								"我关心的不只是页面长什么样，也包括内容怎么组织、学习过程怎么留下来、项目以后还能不能继续改。",
-								"这里可以写你的专业、兴趣、最近在学的技术、社团经历，或者只是放一些关于自己的碎碎念。",
+								"我叫张方宇，本科就读于电子科技大学信息与软件工程学院软件工程专业（2022.09 – 2026.06），目前在新加坡国立大学攻读计算机工程硕士（Master of Science in Computer Engineering）。方向是嵌入式软件、端侧机器学习（TinyML / 边缘计算）、RTOS，以及机器人与电机控制。",
+								"2025 年 1 月到 8 月，我在华西医院–商汤科技联合实验室做嵌入式软件开发，参与下肢柔性外骨骼机器人项目：实时步态分割、双环 PID 控制三相无刷电机、CAN 与 RabbitMQ 通信，以及用贝叶斯优化做个性化助力。",
+								"本科毕业设计是在 nRF5340 上做可穿戴 ECG 的端侧数据完整性检测：在板上提取特征、运行模型，只把有效数据通过 BLE 发出去。更早的项目还有基于 STM32 的四旋翼飞控（移植 μC/OS-II、手写底层驱动、姿态解算）和基于树莓派 + Arduino 的智能导盲小车。",
 							],
 						},
 					},
@@ -135,22 +184,22 @@ const siteConfigs = {
 						type: "skillCloud",
 						props: {
 							title: "技能栈",
-							skills: ["Astro", "TypeScript", "Tailwind CSS", "Design Systems", "UX Engineering", "Content Strategy"],
+							skills: skillsZh,
 						},
 					},
 					{ type: "contactPanel" },
 				],
 			},
 			projects: {
-				title: "项目 / 作品集",
-				description: "课程作业、小项目、作品集和实验记录。",
+				title: "项目",
+				description: "张方宇的项目：可穿戴 ECG 端侧数据完整性检测等嵌入式软件与端侧机器学习项目。",
 				modules: [
 					{
 						type: "projectGrid",
 						props: {
 							kicker: "Portfolio",
 							title: "项目 / 作品集",
-							description: "这里展示课程作业、个人项目和实验记录。",
+							description: "嵌入式软件、端侧机器学习和机器人控制方向的项目，每个都写清楚问题、结果和实现过程。",
 							columns: 2,
 							largePadding: true,
 						},
@@ -158,15 +207,15 @@ const siteConfigs = {
 				],
 			},
 			blog: {
-				title: "博客 / 笔记",
-				description: "关于课程、前端、设计、生活和长期学习的笔记。",
+				title: "博客",
+				description: "张方宇的博客：嵌入式软件、端侧机器学习、RTOS 和机器人控制方向的笔记。",
 				modules: [
 					{
 						type: "blogIndex",
 						props: {
 							kicker: "Notes",
 							title: "博客 / 笔记",
-							description: "用 Markdown 记录学习过程、项目复盘、课堂笔记和日常观察。草稿文章会在列表中自动过滤。",
+							description: "记录嵌入式、端侧机器学习、RTOS 和机器人控制方向的学习过程与项目复盘。",
 							labels: {
 								search: "搜索标题、摘要或标签",
 								all: "全部",
@@ -179,7 +228,7 @@ const siteConfigs = {
 			},
 			graph: {
 				title: "知识图谱",
-				description: "由博客标签和双链生成的知识图谱。",
+				description: "由博客文章之间的双链生成的知识图谱。",
 				controls: { repulsion: "斥力", distance: "间距", motion: "动态" },
 				modules: [
 					{
@@ -187,15 +236,15 @@ const siteConfigs = {
 						props: {
 							kicker: "Graph",
 							title: "知识图谱",
-							description: "每篇笔记都是一个节点，在这里可以看见整个知识库的结构。",
+							description: "每篇笔记是一个节点，双链是它们之间的连线。",
 							emptyText: "还没有可以展示的笔记。发布文章并用 [[双链]] 互相引用后，这里会生成图谱。",
 						},
 					},
 				],
 			},
 			resume: {
-				title: "简历 / 经历",
-				description: "学生经历、技能、项目和学习记录。",
+				title: "简历",
+				description: "张方宇的简历：教育背景、实习经历、项目和技能。",
 				profileLabel: "Profile",
 				emailLabel: "Email",
 				linksLabel: "Links",
@@ -206,21 +255,21 @@ const siteConfigs = {
 						type: "resume",
 						props: {
 							kicker: "Resume",
-							title: "简历 / 经历",
-							description: "此页面展示教育经历、项目经验、技能和可下载的简历文件。当前内容来自 src/config/site.ts。",
+							title: "简历",
+							description: "教育背景、实习经历、项目和技能。",
 						},
 					},
 				],
 			},
 			contact: {
-				title: "联系方式",
-				description: "联系这个个人网站的作者。",
+				title: "联系",
+				description: "联系张方宇：邮箱和 GitHub。",
 				modules: [
 					{
 						type: "contactCards",
 						props: {
 							kicker: "Contact",
-							heading: "关于项目、写作或个人网站的想法，欢迎来信。",
+							heading: "想聊嵌入式、\u200B端侧机器学习，\u200B或者有项目\u200B想一起做，\u200B欢迎来信。",
 							intro: "邮件是最稳妥的联系方式；代码和项目在 GitHub。",
 						},
 					},
@@ -229,42 +278,126 @@ const siteConfigs = {
 			},
 		},
 		contactPanel: {
-			kicker: "Message",
-			heading: "如果你在这里发现了有趣的项目或笔记，欢迎打个招呼。",
+			kicker: "Contact",
+			heading: "对这些项目感兴趣，\u200B或者想聊嵌入式\u200B和端侧机器学习，\u200B欢迎联系我。",
 		},
-		skills: ["Astro", "TypeScript", "Tailwind CSS", "Design Systems", "UX Engineering", "Content Strategy"],
+		skills: skillsZh,
 		resume: {
-			summary: "一个模板简历区域，用于展示教育、技能、项目亮点和可下载的简历文件。",
+			summary: "方向是嵌入式软件与端侧机器学习。本科毕业于电子科技大学软件工程专业（GPA 3.80 / 4.00），现在新加坡国立大学攻读计算机工程硕士。做过外骨骼机器人的步态识别与电机控制、nRF5340 上的端侧心电数据完整性检测，以及基于 STM32 的四旋翼飞控。",
 			details: [
-				{ label: "Location", value: "Campus / Online" },
-				{ label: "Focus", value: "Design Engineering / Frontend / Content" },
+				{ label: "所在地", value: "新加坡" },
+				{ label: "方向", value: "嵌入式软件 / 端侧机器学习（TinyML / 边缘计算）/ RTOS / 机器人与电机控制" },
 			],
 			links: [
-				{ label: "Projects", href: "/projects" },
-				{ label: "Notes", href: "/blog" },
-				{ label: "Contact", href: "/contact" },
+				{ label: "GitHub", href: githubUrl },
+				{ label: "项目", href: "/projects" },
+				{ label: "联系", href: "/contact" },
 			],
-			files: [],
-			highlights: ["Add awards, competitions, or course highlights here", "Add open-source contributions or club experience here"],
+			files: [
+				{ label: "下载简历 PDF", href: resumePdf },
+			],
+			highlights: [
+				"优秀奖学金（2022–2024）",
+				"优秀共青团员",
+				"校优秀社会实践个人",
+				"2025 网络技术挑战赛省级二等奖",
+				"电子科技大学尔绮工作室主席",
+				"学生社团联合会外联部长",
+				"学院学生科助理",
+			],
 			sections: [
 				{
-					title: "Experience",
+					title: "教育",
 					items: [
 						{
-							period: "2025 - Now",
-							title: "Student Builder",
-							org: "Campus and spare time",
-							description: "Turning coursework, personal interests, and frontend practice into maintainable projects and notes.",
-							points: ["Learning", "Projects", "Notes"],
+							period: "2026 – 至今",
+							title: "计算机工程硕士（Master of Science in Computer Engineering）",
+							org: "新加坡国立大学（NUS）",
+							description: "",
+							bullets: [],
+							points: [],
 							link: [],
 						},
 						{
-							period: "2024 - 2025",
-							title: "Frontend Learner",
-							org: "Self-directed projects",
-							description: "Practicing Astro, TypeScript, Tailwind CSS, and content-driven websites by building real pages.",
-							points: ["Astro", "TypeScript", "Tailwind CSS"],
+							period: "2022.09 – 2026.06",
+							title: "软件工程 本科",
+							org: "电子科技大学（985 / 211 / 双一流）· 信息与软件工程学院 · 成都",
+							description: "全日制本科。",
+							bullets: [],
+							points: ["GPA 3.80 / 4.00", "CET-6", "IELTS"],
 							link: [],
+						},
+					],
+				},
+				{
+					title: "经历",
+					items: [
+						{
+							period: "2025.01 – 2025.08",
+							title: "嵌入式软件开发工程师",
+							org: "华西医院–商汤科技联合实验室",
+							description: "项目：弱能力老人运动机理驱动的下肢柔性外骨骼机器人。",
+							bullets: [
+								"步态生成：通过特征提取和步态分割，把步态实时分成 6 个阶段，准确率 98%，并解算行走速度与轨迹。",
+								"电机控制：用双环 PID 控制三相无刷电机，以电流、速度、位移为参数产生拉力，在老人行走时提供助力。",
+								"通信：开发板与上位机之间走 CAN，上位机与 PC 之间用 RabbitMQ，交互频率 250 Hz。",
+								"个性化助力：用贝叶斯优化在预训练的 PSS 参数空间中搜索最佳助力时机和大小，23 分钟完成；胫骨前肌（TA）激活度降低 54.2%；对接华西医院，适配偏瘫、中风等多种足下垂患者。",
+								"上位机：建立病人档案数据库，供康复医师按病情设计训练方案，训练数据可视化并保存分析。",
+							],
+							points: ["PID 控制", "三相无刷电机", "CAN", "RabbitMQ", "贝叶斯优化"],
+							link: [],
+						},
+					],
+				},
+				{
+					title: "项目",
+					items: [
+						{
+							period: "2025.10 – 2026.04",
+							title: "基于边缘计算的可穿戴 ECG 数据完整性检测系统",
+							org: "本科毕业设计 · nRF5340",
+							description: "在设备端先判断一段心电数据是否完整，只把有效数据通过 BLE 上传。",
+							bullets: [
+								"在 nRF5340 上跑通完整流程：提取 6 维特征、板上推理，只发送被判定为有效的窗口。",
+								"对比 13 种算法 × 浮点 / INT8 共 26 种模型配置，最终选定 SVM：测试准确率 100%，单次推理约 1 ms。",
+								"只传完整数据的 BLE 传输策略，使整体功耗降低 13.7%。",
+								"搭建完整的软硬件验证平台，对比各模型在板上的准确率、推理时间和功耗。",
+							],
+							points: ["nRF5340", "Zephyr", "TensorFlow Lite Micro", "BLE"],
+							link: [
+								{ name: "项目详情", href: "/projects/ecg-integrity" },
+								{ name: "代码仓库", href: ecgRepoUrl },
+							],
+						},
+						{
+							period: "2023.09 – 2024.06",
+							title: "基于 STM32 的四旋翼无人机",
+							org: "STM32F401RET6 · μC/OS-II",
+							description: "",
+							bullets: [
+								"基于 STM32F401RET6 自主编写飞控、自主搭建飞行器，实现稳定飞行。",
+								"移植 μC/OS-II，重构时钟、中断、任务切换，按优先级调度飞行任务。",
+								"用 C/C++ 和 ARM 汇编按芯片手册编写 USART、I²C 等底层驱动。",
+								"用四元数、高斯–牛顿迭代推导并实现姿态解算。",
+							],
+							points: ["STM32", "μC/OS-II", "C/C++", "ARM 汇编"],
+							link: [
+								{ name: "代码仓库", href: quadcopterRepoUrl },
+							],
+						},
+						{
+							period: "2024.06 – 2024.07",
+							title: "基于树莓派 + Arduino 的智能导盲小车",
+							org: "Raspberry Pi · Arduino",
+							description: "",
+							bullets: [
+								"用 HTTP + Flask 以视频流方式让大模型与网页实时通信，展示对各类猫的识别结果和识别率。",
+								"黑线循迹 + PID 控制保持车道，Dijkstra 路径规划，差速转向。",
+							],
+							points: ["Raspberry Pi", "Arduino", "Flask", "PID 控制", "Dijkstra"],
+							link: [
+								{ name: "代码仓库", href: guideVehicleRepoUrl },
+							],
 						},
 					],
 				},
@@ -273,8 +406,9 @@ const siteConfigs = {
 	},
 	en: {
 		...shared,
-		title: "Student / Design Engineering Learner",
-		description: "A dark-themed Astro personal website template for course records, small projects, blog notes, resume experience, and personal links.",
+		name: "Fangyu Zhang",
+		title: "MSc Computer Engineering @ NUS · Embedded Engineer",
+		description: "Personal site of Fangyu Zhang: projects, notes, and résumé on embedded software, on-device machine learning (TinyML / edge computing), RTOS, and robotics and motor control.",
 		nav: [
 			{ label: "Home", href: "/" },
 			{ label: "About", href: "/about" },
@@ -285,45 +419,47 @@ const siteConfigs = {
 			{ label: "Contact", href: "/contact" },
 		],
 		quickLinks: [
-			{ label: "Blog", href: "/blog", icon: "N" },
 			{ label: "Projects", href: "/projects", icon: "P" },
-			{ label: "About", href: "/about", icon: "A" },
+			{ label: "Blog", href: "/blog", icon: "B" },
 			{ label: "Resume", href: "/resume", icon: "R" },
-			{ label: "Contact", href: "/contact", icon: "@" },
+			{ label: "GitHub", href: githubUrl, icon: "GH" },
 		],
 		ui: {
-			headerCta: "Say hi",
+			headerCta: "Email me",
 			projectCta: "View project ->",
 			projectLiveCta: "Visit project",
 			projectRepoCta: "View code",
+			projectStackLabel: "Stack",
+			projectVideosLabel: "Videos",
+			projectGalleryLabel: "Gallery",
 			backToList: "Back to list",
 			socialCardCta: "View profile",
 		},
 		home: {
-			eyebrowNote: "A student homepage hub for projects, notes, and things in progress.",
-			headline: "Putting coursework, experiments, and random ideas in one place.",
-			intro: "A student-friendly Astro personal website template: course records, project portfolios, blog notes, and a few things only you find interesting.",
+			eyebrowNote: "Software Engineering graduate from UESTC, now pursuing an MSc in Computer Engineering at the National University of Singapore.",
+			headline: "Making algorithms actually run on constrained hardware.",
+			intro: "I work on embedded software, on-device machine learning, and robot control — from low-level drivers, RTOS porting, and motor control to deploying models on microcontrollers for inference. This site collects my projects, notes, and résumé.",
 			primaryCta: { label: "View projects", href: "/projects" },
-			secondaryCta: { label: "Contact me", href: "/contact" },
+			secondaryCta: { label: "View résumé", href: "/resume" },
 		},
 		pages: {
 			home: {
 				title: "Home",
-				description: "A dark-themed Astro personal website template.",
+				description: "Personal site of Fangyu Zhang: projects, notes, and résumé on embedded software, on-device machine learning (TinyML / edge computing), RTOS, and robotics and motor control.",
 				modules: [
 					{ type: "homeHero" },
 					{ type: "linkGrid", props: { items: [
-						{ label: "Coursework and study notes", href: "/blog" },
-						{ label: "Projects and experiments", href: "/projects" },
-						{ label: "Design practice and frontend review", href: "/about" },
-						{ label: "Blog, bookmarks, and daily entry", href: "/contact" },
+						"Embedded software",
+						"On-device ML / TinyML",
+						"RTOS",
+						"Robotics & motor control",
 					] } },
 					{
 						type: "projectGrid",
 						props: {
-							kicker: "Small Builds",
-							title: "Recent projects",
-							description: "Not always polished, but each one captures a bit of the learning process.",
+							kicker: "Projects",
+							title: "Selected projects",
+							description: "Each project is written up with the problem it solves, the results, and how it was built.",
 							featuredOnly: true,
 							limit: 3,
 							columns: 3,
@@ -334,7 +470,7 @@ const siteConfigs = {
 						props: {
 							kicker: "Notes",
 							title: "Latest notes",
-							description: "Classroom, frontend, design, life observations can all become random thoughts in Markdown.",
+							description: "Notes from working on embedded systems, on-device machine learning, and coursework.",
 							limit: 3,
 						},
 					},
@@ -343,19 +479,20 @@ const siteConfigs = {
 			},
 			about: {
 				title: "About",
-				description: "About a student personal website, learning direction, skills, and interests.",
+				description: "Fangyu Zhang: MSc student in Computer Engineering at NUS with a Bachelor's in Software Engineering from UESTC, focused on embedded software, on-device machine learning, RTOS, and robotics and motor control.",
 				modules: [
 					{
 						type: "aboutIntro",
 						props: {
 							kicker: "About",
-							heading: "I am slowly exploring between courses, code, and interest projects.",
-							intro: "This template is suitable for introducing a student learning design, frontend, content creation, or any personal interest direction.",
+							heading: "Embedded software, with algorithms that land on real hardware.",
+							intro: "Embedded software · On-device machine learning (TinyML / edge computing) · RTOS · Robotics & motor control",
 							profileLabel: "Profile",
-							profile: "I enjoy turning what I learn into pages, small tools, and notes I can look back on.",
+							profile: "MSc student in Computer Engineering at the National University of Singapore; Bachelor's in Software Engineering from UESTC.",
 							paragraphs: [
-								"I care not only about how the page looks, but also how content is organized, how the learning process is preserved, and whether projects can be continued later.",
-								"Here you can write about your major, interests, recent technologies, club experiences, or just some random thoughts about yourself.",
+								"I'm Fangyu Zhang. I studied Software Engineering at the School of Information and Software Engineering, University of Electronic Science and Technology of China (UESTC), from September 2022 to June 2026, and I'm now pursuing a Master of Science in Computer Engineering at the National University of Singapore (NUS). My focus is embedded software, on-device machine learning (TinyML / edge computing), RTOS, and robotics and motor control.",
+								"From January to August 2025 I worked as an embedded software engineer at the West China Hospital – SenseTime Joint Lab on a soft lower-limb exoskeleton robot: real-time gait segmentation, dual-loop PID control of three-phase brushless motors, CAN and RabbitMQ communication, and personalized assistance tuned with Bayesian optimization.",
+								"My final-year project was on-device data integrity detection for wearable ECG on the nRF5340: extracting features and running the model on the board, and sending only valid data over BLE. Earlier projects include an STM32 quadcopter flight controller (porting μC/OS-II, hand-written low-level drivers, attitude estimation) and a smart guide vehicle built on Raspberry Pi and Arduino.",
 							],
 						},
 					},
@@ -363,22 +500,22 @@ const siteConfigs = {
 						type: "skillCloud",
 						props: {
 							title: "Skills",
-							skills: ["Astro", "TypeScript", "Tailwind CSS", "Design Systems", "UX Engineering", "Content Strategy"],
+							skills: skillsEn,
 						},
 					},
 					{ type: "contactPanel" },
 				],
 			},
 			projects: {
-				title: "Projects / Portfolio",
-				description: "Coursework, small projects, portfolio pieces, and experiment records.",
+				title: "Projects",
+				description: "Projects by Fangyu Zhang: on-device data integrity detection for wearable ECG and other embedded software and on-device machine learning work.",
 				modules: [
 					{
 						type: "projectGrid",
 						props: {
 							kicker: "Portfolio",
 							title: "Projects / Portfolio",
-							description: "Showcasing coursework, personal projects, and experiment records.",
+							description: "Projects in embedded software, on-device machine learning, and robot control, each written up with the problem, the results, and the implementation.",
 							columns: 2,
 							largePadding: true,
 						},
@@ -386,15 +523,15 @@ const siteConfigs = {
 				],
 			},
 			blog: {
-				title: "Blog / Notes",
-				description: "Notes about coursework, frontend, design, life, and long-term learning.",
+				title: "Blog",
+				description: "Fangyu Zhang's blog: notes on embedded software, on-device machine learning, RTOS, and robot control.",
 				modules: [
 					{
 						type: "blogIndex",
 						props: {
 							kicker: "Notes",
 							title: "Blog / Notes",
-							description: "Write learning logs, project reviews, class notes, and daily observations in Markdown. Drafts are hidden from lists automatically.",
+							description: "Learning notes and project write-ups on embedded systems, on-device machine learning, RTOS, and robot control.",
 							labels: {
 								search: "Search title, summary, or tags",
 								all: "All",
@@ -407,7 +544,7 @@ const siteConfigs = {
 			},
 			graph: {
 				title: "Knowledge Graph",
-				description: "A knowledge graph generated from wiki links in blog posts.",
+				description: "A knowledge graph generated from the wiki links between blog posts.",
 				controls: { repulsion: "Repulsion", distance: "Distance", motion: "Motion" },
 				modules: [
 					{
@@ -415,15 +552,15 @@ const siteConfigs = {
 						props: {
 							kicker: "Graph",
 							title: "Knowledge Graph",
-							description: "Each note is a node. Wiki links create connections between notes.",
+							description: "Each note is a node; wiki links are the edges between them.",
 							emptyText: "No notes to show yet. Once posts are published and connected with [[wiki links]], the graph will appear here.",
 						},
 					},
 				],
 			},
 			resume: {
-				title: "Resume / Experience",
-				description: "Student experience, skills, projects, and learning records.",
+				title: "Resume",
+				description: "Fangyu Zhang's résumé: education, experience, projects, and skills.",
 				profileLabel: "Profile",
 				emailLabel: "Email",
 				linksLabel: "Links",
@@ -434,21 +571,21 @@ const siteConfigs = {
 						type: "resume",
 						props: {
 							kicker: "Resume",
-							title: "Resume / Experience",
-							description: "Use this page for education, club experience, projects, skills, and resume files. The current content comes from src/config/site.ts.",
+							title: "Resume",
+							description: "Education, experience, projects, and skills.",
 						},
 					},
 				],
 			},
 			contact: {
 				title: "Contact",
-				description: "Contact the author of this personal website.",
+				description: "Contact Fangyu Zhang by email or on GitHub.",
 				modules: [
 					{
 						type: "contactCards",
 						props: {
 							kicker: "Contact",
-							heading: "Send a note about projects, writing, or personal websites.",
+							heading: "Want to talk about embedded systems, on-device ML, or a project to build together? Email me.",
 							intro: "Email is the most reliable way to reach me; code and projects live on GitHub.",
 						},
 					},
@@ -457,42 +594,126 @@ const siteConfigs = {
 			},
 		},
 		contactPanel: {
-			kicker: "Message",
-			heading: "If you find an interesting project or note here, feel free to say hi.",
+			kicker: "Contact",
+			heading: "If any of these projects interests you, or you want to talk about embedded systems and on-device ML, get in touch.",
 		},
-		skills: ["Astro", "TypeScript", "Tailwind CSS", "Design Systems", "UX Engineering", "Content Strategy"],
+		skills: skillsEn,
 		resume: {
-			summary: "A template resume area for education, skills, projects, highlights, and downloadable resume files.",
+			summary: "Focused on embedded software and on-device machine learning. Bachelor's in Software Engineering from UESTC (GPA 3.80 / 4.00), now pursuing an MSc in Computer Engineering at NUS. I have worked on gait recognition and motor control for an exoskeleton robot, on-device ECG data integrity detection on the nRF5340, and an STM32 quadcopter flight controller.",
 			details: [
-				{ label: "Location", value: "Campus / Online" },
-				{ label: "Focus", value: "Design Engineering / Frontend / Content" },
+				{ label: "Location", value: "Singapore" },
+				{ label: "Focus", value: "Embedded software / On-device ML (TinyML / edge computing) / RTOS / Robotics & motor control" },
 			],
 			links: [
+				{ label: "GitHub", href: githubUrl },
 				{ label: "Projects", href: "/projects" },
-				{ label: "Notes", href: "/blog" },
 				{ label: "Contact", href: "/contact" },
 			],
-			files: [],
-			highlights: ["Add awards, competitions, or course highlights here", "Add open-source contributions or club experience here"],
+			files: [
+				{ label: "Download résumé (PDF)", href: resumePdf },
+			],
+			highlights: [
+				"Outstanding Student Scholarship (2022–2024)",
+				"Outstanding Communist Youth League Member",
+				"University-level Outstanding Individual in Social Practice",
+				"Provincial Second Prize, 2025 Network Technology Challenge",
+				"President, Erqi Studio, UESTC",
+				"Head of External Relations, Student Associations Union",
+				"Assistant, School Student Affairs Office",
+			],
 			sections: [
+				{
+					title: "Education",
+					items: [
+						{
+							period: "2026 – Present",
+							title: "Master of Science in Computer Engineering",
+							org: "National University of Singapore (NUS)",
+							description: "",
+							bullets: [],
+							points: [],
+							link: [],
+						},
+						{
+							period: "2022.09 – 2026.06",
+							title: "Bachelor's in Software Engineering",
+							org: "University of Electronic Science and Technology of China (UESTC; Project 985 / Project 211 / Double First-Class) · School of Information and Software Engineering · Chengdu",
+							description: "Full-time undergraduate program.",
+							bullets: [],
+							points: ["GPA 3.80 / 4.00", "CET-6", "IELTS"],
+							link: [],
+						},
+					],
+				},
 				{
 					title: "Experience",
 					items: [
 						{
-							period: "2025 - Now",
-							title: "Student Builder",
-							org: "Campus and spare time",
-							description: "Turning coursework, personal interests, and frontend practice into maintainable projects and notes.",
-							points: ["Learning", "Projects", "Notes"],
+							period: "2025.01 – 2025.08",
+							title: "Embedded Software Engineer",
+							org: "West China Hospital – SenseTime Joint Lab",
+							description: "Project: a soft lower-limb exoskeleton robot driven by the movement mechanisms of elderly people with reduced mobility.",
+							bullets: [
+								"Gait generation: feature extraction and gait segmentation split the gait into 6 phases in real time with 98% accuracy, and solve for walking speed and trajectory.",
+								"Motor control: dual-loop PID control of a three-phase brushless motor, using current, speed, and displacement as parameters to generate a pulling force that assists the wearer while walking.",
+								"Communication: CAN between the development board and the host computer, RabbitMQ between the host computer and the PC, exchanging data at 250 Hz.",
+								"Personalized assistance: Bayesian optimization searches a pre-trained PSS parameter space for the best assistance timing and magnitude, finishing in 23 minutes; tibialis anterior (TA) activation dropped by 54.2%. Worked with West China Hospital to adapt the system to patients with foot drop from hemiplegia, stroke, and other conditions.",
+								"Host software: a patient record database that lets rehabilitation physicians design training plans by condition, with training data visualized and saved for analysis.",
+							],
+							points: ["PID control", "BLDC motor", "CAN", "RabbitMQ", "Bayesian optimization"],
 							link: [],
 						},
+					],
+				},
+				{
+					title: "Projects",
+					items: [
 						{
-							period: "2024 - 2025",
-							title: "Frontend Learner",
-							org: "Self-directed projects",
-							description: "Practicing Astro, TypeScript, Tailwind CSS, and content-driven websites by building real pages.",
-							points: ["Astro", "TypeScript", "Tailwind CSS"],
-							link: [],
+							period: "2025.10 – 2026.04",
+							title: "On-Device Data Integrity Detection for Wearable ECG (nRF5340)",
+							org: "Final Year Project · nRF5340",
+							description: "Decide on the device whether a segment of ECG data is intact, and upload only valid data over BLE.",
+							bullets: [
+								"Full pipeline running on the nRF5340: 6-dimensional feature extraction, on-board inference, and transmission of only the windows judged valid.",
+								"Compared 26 model configurations (13 algorithms × float / INT8) and selected an SVM: 100% test accuracy, about 1 ms per inference.",
+								"Sending only intact data over BLE reduced overall power consumption by 13.7%.",
+								"Built a complete hardware and software test platform to compare each model's on-board accuracy, inference time, and power consumption.",
+							],
+							points: ["nRF5340", "Zephyr", "TensorFlow Lite Micro", "BLE"],
+							link: [
+								{ name: "Project page", href: "/projects/ecg-integrity" },
+								{ name: "Repository", href: ecgRepoUrl },
+							],
+						},
+						{
+							period: "2023.09 – 2024.06",
+							title: "STM32-Based Quadcopter",
+							org: "STM32F401RET6 · μC/OS-II",
+							description: "",
+							bullets: [
+								"Wrote the flight controller and built the aircraft from scratch on an STM32F401RET6, achieving stable flight.",
+								"Ported μC/OS-II, reworking the clock, interrupts, and task switching, and scheduled flight tasks by priority.",
+								"Wrote low-level drivers such as USART and I²C in C/C++ and ARM assembly, working from the chip manual.",
+								"Derived and implemented attitude estimation using quaternions and Gauss–Newton iteration.",
+							],
+							points: ["STM32", "μC/OS-II", "C/C++", "ARM assembly"],
+							link: [
+								{ name: "Repository", href: quadcopterRepoUrl },
+							],
+						},
+						{
+							period: "2024.06 – 2024.07",
+							title: "Smart Guide Vehicle Based on Raspberry Pi + Arduino",
+							org: "Raspberry Pi · Arduino",
+							description: "",
+							bullets: [
+								"Used HTTP and Flask to stream video so that a large model and a web page communicate in real time, showing recognition results and recognition rates for different kinds of cats.",
+								"Black-line following with PID control to stay in lane, Dijkstra path planning, and differential steering.",
+							],
+							points: ["Raspberry Pi", "Arduino", "Flask", "PID control", "Dijkstra"],
+							link: [
+								{ name: "Repository", href: guideVehicleRepoUrl },
+							],
 						},
 					],
 				},
@@ -559,6 +780,13 @@ function localizeSiteLinks<T extends typeof siteConfigs[Locale]>(config: T, loca
 		resume: {
 			...config.resume,
 			links: config.resume.links.map((item) => ({ ...item, href: localizePath(locale, item.href) })),
+			sections: config.resume.sections.map((section) => ({
+				...section,
+				items: section.items.map((item) => ({
+					...item,
+					link: item.link.map((link) => ({ ...link, href: localizePath(locale, link.href) })),
+				})),
+			})),
 		},
 	} as T;
 }

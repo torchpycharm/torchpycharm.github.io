@@ -23,9 +23,11 @@ const projects = (await getCollection('projects'))
 	.slice(0, limit ?? Number.POSITIVE_INFINITY);
 ---
 
-<section class:list={['mx-auto max-w-6xl px-5', largePadding ? 'py-20 md:py-28' : 'py-16']}>
-	<SectionHeading kicker={kicker} title={title} description={description} />
-	<div class:list={['grid gap-4', columns === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3']}>
-		{projects.map((project) => <ProjectCard project={project} />)}
-	</div>
-</section>
+{(projects.length > 0 || !featuredOnly) && (
+	<section class:list={['mx-auto max-w-6xl px-5', largePadding ? 'py-20 md:py-28' : 'py-16']}>
+		<SectionHeading kicker={kicker} title={title} description={description} />
+		<div class:list={['grid gap-4', columns === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3']}>
+			{projects.map((project) => <ProjectCard project={project} />)}
+		</div>
+	</section>
+)}
