@@ -220,8 +220,14 @@ body {
 	margin: 1.5rem 0;
 }
 
+.prose-content > picture {
+	display: block;
+	margin: 1.5rem 0;
+}
+
 .prose-content .obsidian-image img,
-.prose-content > p > img {
+.prose-content > p > img,
+.prose-content > picture > img {
 	display: block;
 	max-width: 100%;
 	height: auto;

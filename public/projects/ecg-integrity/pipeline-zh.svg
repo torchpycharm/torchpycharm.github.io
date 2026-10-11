@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 524" width="760" height="524" role="img" aria-label="ECG 数据完整性检测流水线：上位机经 UART 送入 300 Hz 心电数据，中断里解析帧并写入环形缓冲，按记录切窗口，快照后交给工作线程，提取 6 维特征，SVM 推理，只有有效窗口通过 BLE 发送。">
+	<style>
+		text { font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; text-anchor: middle; }
+		.title { font-size: 15px; font-weight: 600; fill: #f4f4f5; }
+		.sub { font-size: 12px; fill: #a1a1aa; }
+		.row { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; fill: #71717a; text-anchor: end; }
+		.edge { font-size: 12px; fill: #a1a1aa; }
+		.edge-yes { font-size: 12px; fill: #93c5fd; }
+		.flow { fill: none; stroke: #71717a; stroke-width: 1.5; }
+		.flow-yes { fill: none; stroke: #60a5fa; stroke-width: 1.5; }
+		.flow-no { fill: none; stroke: #52525b; stroke-width: 1.5; stroke-dasharray: 4 4; }
+	</style>
+	<defs>
+		<marker id="arrow" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+			<path d="M1 1L6.5 4L1 7" fill="none" stroke="#71717a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+		</marker>
+		<marker id="arrow-yes" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+			<path d="M1 1L6.5 4L1 7" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+		</marker>
+		<marker id="arrow-no" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+			<path d="M1 1L6.5 4L1 7" fill="none" stroke="#52525b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+		</marker>
+	</defs>
+	<rect width="760" height="524" fill="#09090b" />
+
+	<text x="736" y="30" class="row">采集</text>
+	<text x="736" y="178" class="row">窗口与特征</text>
+	<text x="736" y="326" class="row">判定与发送</text>
+
+	<rect x="24" y="44" width="216" height="84" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)" />
+	<text x="132" y="82" class="title">上位机</text>
+	<text x="132" y="104" class="sub">UART · 300 Hz 心电数据</text>
+	<rect x="272" y="44" width="216" height="84" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)" />
+	<text x="380" y="82" class="title">UART 中断</text>
+	<text x="380" y="104" class="sub">解析数据帧</text>
+	<rect x="520" y="44" width="216" height="84" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)" />
+	<text x="628" y="82" class="title">环形缓冲</text>
+	<text x="628" y="104" class="sub">数据入队</text>
+	<rect x="24" y="192" width="216" height="84" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)" />
+	<text x="132" y="221" class="title">按记录切窗口</text>
+	<text x="132" y="243" class="sub">最长 12000 点</text>
+	<text x="132" y="261" class="sub">典型 9000 点 = 30 s</text>
+	<rect x="272" y="192" width="216" height="84" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)" />
+	<text x="380" y="230" class="title">快照 → 工作线程</text>
+	<text x="380" y="252" class="sub">采集不被阻塞</text>
+	<rect x="520" y="192" width="216" height="84" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)" />
+	<text x="628" y="221" class="title">特征提取</text>
+	<text x="628" y="243" class="sub">三段 × 峰度、偏度</text>
+	<text x="628" y="261" class="sub">共 6 维特征</text>
+	<rect x="24" y="340" width="216" height="84" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)" />
+	<text x="132" y="378" class="title">模型推理</text>
+	<text x="132" y="400" class="sub">SVM · 约 1 ms</text>
+	<rect x="520" y="340" width="216" height="84" rx="10" fill="rgba(96,165,250,0.08)" stroke="rgba(96,165,250,0.55)" />
+	<text x="628" y="378" class="title">BLE 发送</text>
+	<text x="628" y="400" class="sub">START / DATA / END 分包</text>
+
+	<path d="M380 344L446 382L380 420L314 382Z" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.14)" stroke-linejoin="round" />
+	<text x="380" y="387" class="title">有效？</text>
+	<rect x="286" y="460" width="188" height="40" rx="10" fill="none" stroke="#3f3f46" stroke-dasharray="4 4" />
+	<text x="380" y="485" class="sub">丢弃，不上传</text>
+
+	<path d="M244 86H266" class="flow" marker-end="url(#arrow)" />
+	<path d="M492 86H514" class="flow" marker-end="url(#arrow)" />
+	<path d="M244 234H266" class="flow" marker-end="url(#arrow)" />
+	<path d="M492 234H514" class="flow" marker-end="url(#arrow)" />
+	<path d="M628 132V142Q628 150 620 150H140Q132 150 132 158V186" class="flow" marker-end="url(#arrow)" />
+	<path d="M628 280V290Q628 298 620 298H140Q132 298 132 306V334" class="flow" marker-end="url(#arrow)" />
+	<path d="M244 382H308" class="flow" marker-end="url(#arrow)" />
+	<path d="M450 382H514" class="flow-yes" marker-end="url(#arrow-yes)" />
+	<text x="483" y="373" class="edge-yes">是</text>
+	<path d="M380 424V454" class="flow-no" marker-end="url(#arrow-no)" />
+	<text x="398" y="442" class="edge">否</text>
+</svg>
