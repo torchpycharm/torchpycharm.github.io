@@ -16,7 +16,7 @@ export const locales = {
 export type Locale = keyof typeof locales;
 
 const githubUrl = "https://github.com/torchpycharm";
-const ecgRepoUrl = "https://github.com/torchpycharm/FYP_Embedded-Implementation-of-Data-Integrity-Detection-for-Wearable-ECG-Devices";
+const ecgRepoUrl = "https://github.com/torchpycharm/nrf5340_ecg";
 const quadcopterRepoUrl = "https://github.com/Crystal-PuNK/Quadcopter_Group3";
 const guideVehicleRepoUrl = "https://github.com/huaji1hao/Pi7_RemoteControl_DeepLearning_Vehicle";
 const resumePdf = "/resume/FangyuZhang-CV.pdf";
@@ -51,7 +51,6 @@ const skillsZh = [
 	"C/C++",
 	"Python",
 	"Verilog HDL",
-	"ARM 汇编",
 	"Linux",
 	"STM32",
 	"Arduino",
@@ -61,9 +60,8 @@ const skillsZh = [
 	"FreeRTOS",
 	"μC/OS-II",
 	"USART / I²C / SPI / CAN",
-	"BLE",
 	"TensorFlow Lite Micro",
-	"PID 控制",
+	"PID",
 	"Git",
 ];
 
@@ -81,7 +79,6 @@ const skillsEn = [
 	"FreeRTOS",
 	"μC/OS-II",
 	"USART / I²C / SPI / CAN",
-	"BLE",
 	"TensorFlow Lite Micro",
 	"PID Control",
 	"Git",
@@ -90,9 +87,9 @@ const skillsEn = [
 const siteConfigs = {
 	zh: {
 		...shared,
-		name: "张方宇",
-		title: "NUS 计算机工程硕士在读 · 嵌入式工程师",
-		description: "张方宇的个人网站：嵌入式软件、端侧机器学习（TinyML / 边缘计算）、RTOS、机器人与电机控制方向的项目、笔记和简历。",
+		name: "stardust",
+		title: "NUS 计算机工程硕士在读 · RM电控组",
+		description: "stardust的个人网站：记录嵌入式开发经验，分享项目笔记和简历。",
 		nav: [
 			{ label: "首页", href: "/" },
 			{ label: "关于我", href: "/about" },
@@ -121,29 +118,29 @@ const siteConfigs = {
 		},
 		status: {
 			title: "当前状态",
-			current: "正在：在 NUS 读计算机工程硕士",
-			next: "接下来：补上外骨骼、四旋翼和导盲小车的项目页",
-			note: "最近完成：可穿戴 ECG 端侧数据完整性检测",
+			current: "NUS 计算机工程硕士",
+			next: "搭建我的个人博客",
+			note: "NUS Calibur RM电控组学习中",
 			timeLabel: "我的当前时间",
 			timeZone: "Asia/Singapore",
 			dateLocale: "zh-CN",
 		},
 		home: {
-			eyebrowNote: "本科毕业于电子科技大学软件工程专业，现在新加坡国立大学读计算机工程硕士。",
-			headline: "在资源受限的\u200B硬件上，\u200B把算法\u200B真正跑起来。",
-			intro: "我做嵌入式软件、端侧机器学习和机器人控制：从底层驱动、RTOS 移植、电机控制，到把模型部署到 MCU 上做推理。这里放我的项目、笔记和简历。",
+			eyebrowNote: "电子科技大学·软件工程·本科\n新加坡国立大学·计算机工程·硕士",
+			headline: "NUS Calibur RM电控组",
+			intro: "我的方向是嵌入式开发，机器人控制，喜欢研究新技术。这里放我的项目、笔记和简历。",
 			primaryCta: { label: "看看项目", href: "/projects" },
 			secondaryCta: { label: "查看简历", href: "/resume" },
 		},
 		pages: {
 			home: {
 				title: "首页",
-				description: "张方宇的个人网站：嵌入式软件、端侧机器学习（TinyML / 边缘计算）、RTOS、机器人与电机控制方向的项目、笔记和简历。",
+				description: "stardust的个人网站：嵌入式软件、端侧机器学习、RTOS、机器人与电机控制方向的项目、笔记和简历。",
 				modules: [
 					{ type: "homeHero" },
 					{ type: "linkGrid", props: { items: [
 						"嵌入式软件",
-						"端侧机器学习 / TinyML",
+						"模型部署",
 						"RTOS",
 						"机器人与电机控制",
 					] } },
@@ -152,7 +149,7 @@ const siteConfigs = {
 						props: {
 							kicker: "Projects",
 							title: "精选项目",
-							description: "每个项目都写清楚要解决的问题、最后的结果和实现过程。",
+							description: "记录做过的项目，简历里放不下的小项目也在这里",
 							featuredOnly: true,
 							limit: 3,
 							columns: 3,
@@ -163,11 +160,10 @@ const siteConfigs = {
 						props: {
 							kicker: "Notes",
 							title: "最新笔记",
-							description: "嵌入式、端侧机器学习和课程学习过程中的记录。",
+							description: "RM电控组学习和NUS课程学习过程中的记录",
 							limit: 3,
 						},
 					},
-					{ type: "contactPanel" },
 				],
 			},
 			about: {
@@ -190,25 +186,64 @@ const siteConfigs = {
 						},
 					},
 					{
+						type: "interests",
+						props: {
+							kicker: "Off Duty",
+							title: "兴趣爱好",
+							description: "写代码之外的时间。",
+							cards: [
+								{
+									label: "Music",
+									title: "爱听的音乐",
+									icon: "♪",
+									items: [
+
+										{ title: "才二十三", subtitle: "方大同", cover: "/interests/23.jpg", href: "" },
+										{ title: "恋人", subtitle: "李荣浩", cover: "/interests/lover.jpg", href: "" },
+										{ title: "几分之几", subtitle: "卢广仲", cover: "/interests/jfzj.jpg", href: "" },
+									],
+								},
+								{
+									label: "Games",
+									title: "在玩的游戏",
+									icon: "GG",
+									items: [
+										{ title: "英雄联盟", subtitle: "国服", badge: "楠王嘉#15582" , cover: "/interests/lol.jpeg", href: "" },
+										{ title: "无畏契约", subtitle: "国服", badge: "PRXsth#20381", cover: "/interests/val.jpg", href: "" },
+									],
+								},
+								{
+									label: "Sports",
+									title: "喜欢的运动",
+									icon: "🏆",
+									items: [
+										{ title: "羽毛球", subtitle: "", badge: "中羽 4 级", cover: "/interests/badminton.jpg", href: "" },
+										{ title: "旅行", subtitle: "", badge: "到处走走", cover: "/interests/travel.jpg", href: "" },
+									],
+								},
+
+							],
+						},
+					},
+					{
 						type: "skillCloud",
 						props: {
 							title: "技能栈",
 							skills: skillsZh,
 						},
 					},
-					{ type: "contactPanel" },
 				],
 			},
 			projects: {
 				title: "项目",
-				description: "张方宇的项目：可穿戴 ECG 端侧数据完整性检测等嵌入式软件与端侧机器学习项目。",
+				description: "张方宇的项目：可穿戴 ECG 端侧数据完整性检测等嵌入式软件与端侧机器学习项目",
 				modules: [
 					{
 						type: "projectGrid",
 						props: {
 							kicker: "Portfolio",
 							title: "项目 / 作品集",
-							description: "嵌入式软件、端侧机器学习和机器人控制方向的项目，每个都写清楚问题、结果和实现过程。",
+							description: "待填写中",
 							columns: 2,
 							largePadding: true,
 						},
@@ -217,14 +252,14 @@ const siteConfigs = {
 			},
 			blog: {
 				title: "博客",
-				description: "张方宇的博客：嵌入式软件、端侧机器学习、RTOS 和机器人控制方向的笔记。",
+				description: "stardust的博客：日常开发笔记。",
 				modules: [
 					{
 						type: "blogIndex",
 						props: {
 							kicker: "Notes",
 							title: "博客 / 笔记",
-							description: "记录嵌入式、端侧机器学习、RTOS 和机器人控制方向的学习过程与项目复盘。",
+							description: "记录嵌入式、端侧机器学习、RTOS 和机器人控制方向的学习过程与项目复盘",
 							labels: {
 								search: "搜索标题、摘要或标签",
 								all: "全部",
@@ -253,7 +288,7 @@ const siteConfigs = {
 			},
 			resume: {
 				title: "简历",
-				description: "张方宇的简历：教育背景、实习经历、项目和技能。",
+				description: "张方宇的简历：教育背景、实习经历、项目和技能",
 				profileLabel: "Profile",
 				emailLabel: "Email",
 				linksLabel: "Links",
@@ -265,21 +300,21 @@ const siteConfigs = {
 						props: {
 							kicker: "Resume",
 							title: "简历",
-							description: "教育背景、实习经历、项目和技能。",
+							description: "教育背景、实习经历、项目和技能",
 						},
 					},
 				],
 			},
 			contact: {
 				title: "联系",
-				description: "联系张方宇：邮箱和 GitHub。",
+				description: "联系我：邮箱和 GitHub。",
 				modules: [
 					{
 						type: "contactCards",
 						props: {
 							kicker: "Contact",
-							heading: "想聊嵌入式、\u200B端侧机器学习，\u200B或者有项目\u200B想一起做，\u200B欢迎来信。",
-							intro: "邮件是最稳妥的联系方式；代码和项目在 GitHub。",
+							heading: "欢迎技术交流和合作",
+							intro: "如有勘误或建议，可以通过邮箱联系我",
 						},
 					},
 				],
@@ -287,7 +322,7 @@ const siteConfigs = {
 		},
 		contactPanel: {
 			kicker: "Contact",
-			heading: "对这些项目感兴趣，\u200B或者想聊嵌入式\u200B和端侧机器学习，\u200B欢迎联系我。",
+			heading: "欢迎邮件交流",
 		},
 		skills: skillsZh,
 		resume: {
@@ -490,6 +525,44 @@ const siteConfigs = {
 								"I'm Fangyu Zhang. I studied Software Engineering at the School of Information and Software Engineering, University of Electronic Science and Technology of China (UESTC), from September 2022 to June 2026, and I'm now pursuing a Master of Science in Computer Engineering at the National University of Singapore (NUS). My focus is embedded software, on-device machine learning (TinyML / edge computing), RTOS, and robotics and motor control.",
 								"From January to August 2025 I worked as an embedded software engineer at the West China Hospital – SenseTime Joint Lab on a soft lower-limb exoskeleton robot: real-time gait segmentation, dual-loop PID control of three-phase brushless motors, CAN and RabbitMQ communication, and personalized assistance tuned with Bayesian optimization.",
 								"My final-year project was on-device data integrity detection for wearable ECG on the nRF5340: extracting features and running the model on the board, and sending only valid data over BLE. Earlier projects include an STM32 quadcopter flight controller (porting μC/OS-II, hand-written low-level drivers, attitude estimation) and a smart guide vehicle built on Raspberry Pi and Arduino.",
+							],
+						},
+					},
+					{
+						type: "interests",
+						props: {
+							kicker: "Off Duty",
+							title: "Interests",
+							description: "What I do when I'm not writing code.",
+							cards: [
+								{
+									label: "Music",
+									title: "On repeat",
+									icon: "♪",
+									items: [
+										// One song per row. cover (an image under public/) and href (a link to the song) are optional.
+										{ title: "Song title", subtitle: "Artist", cover: "/interests/cover-1.jpg", href: "" },
+										{ title: "Song title", subtitle: "Artist" },
+										{ title: "Song title", subtitle: "Artist" },
+									],
+								},
+								{
+									label: "Sports",
+									title: "Sports",
+									icon: "B",
+									items: [
+										{ title: "Badminton", subtitle: "Amateur rating", badge: "Zhongyu Level 4" },
+									],
+								},
+								{
+									label: "Games",
+									title: "Games",
+									icon: "GG",
+									items: [
+										{ title: "League of Legends", subtitle: "CN server", badge: "楠王嘉#15582" },
+										{ title: "VALORANT", subtitle: "CN server", badge: "PRXsth#20381" },
+									],
+								},
 							],
 						},
 					},

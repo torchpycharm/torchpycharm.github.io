@@ -5,6 +5,7 @@ import BlogIndexModule from '../modules/BlogIndexModule.astro';
 import BlogPreviewModule from '../modules/BlogPreviewModule.astro';
 import ContactCardsModule from '../modules/ContactCardsModule.astro';
 import HomeHeroModule from '../modules/HomeHeroModule.astro';
+import InterestsModule from '../modules/InterestsModule.astro';
 import KnowledgeGraphModule from '../modules/KnowledgeGraphModule.astro';
 import LinkGridModule from '../modules/LinkGridModule.astro';
 import PageHeaderModule from '../modules/PageHeaderModule.astro';
@@ -30,6 +31,8 @@ const { modules } = Astro.props;
 			return <AboutIntroModule {...module.props} />;
 		case 'skillCloud':
 			return <SkillCloudModule {...module.props} />;
+		case 'interests':
+			return <InterestsModule {...module.props} />;
 		case 'contactPanel':
 			return <ContactPanel />;
 		case 'homeHero':

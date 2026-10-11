@@ -18,6 +18,22 @@ export type SkillCloudModule = {
 	};
 };
 
+export type InterestsModule = {
+	type: 'interests';
+	props: {
+		kicker?: string;
+		title: string;
+		description?: string;
+		cards: readonly {
+			label: string;
+			title: string;
+			icon: string;
+			note?: string;
+			items: readonly { title: string; subtitle?: string; badge?: string; href?: string; cover?: string }[];
+		}[];
+	};
+};
+
 export type ContactPanelModule = {
 	type: 'contactPanel';
 	props?: Record<string, never>;
@@ -129,6 +145,7 @@ export type RichTextModule = {
 export type PageModule =
 	| AboutIntroModule
 	| SkillCloudModule
+	| InterestsModule
 	| ContactPanelModule
 	| HomeHeroModule
 	| LinkGridModule
