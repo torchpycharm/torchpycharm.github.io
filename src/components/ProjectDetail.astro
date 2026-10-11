@@ -1,0 +1,97 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import MarkdownLayout from '../layouts/MarkdownLayout.astro';
+import VideoEmbed from './VideoEmbed.astro';
+import { getLocaleFromUrl, getSiteConfig } from '../config/site';
+import { cleanContentSlug } from '../config/i18n';
+import { formatProjectPeriod } from '../utils/project';
+import { publicFileExists } from '../utils/public-file';
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { cover, date, description, endDate, gallery, metrics, repo, role, stack, tags, title, url, videos } = project.data;
+const ui = getSiteConfig(getLocaleFromUrl(Astro.url)).ui;
+const heroTransitionName = `project-title-${cleanContentSlug(project.id).replace(/[^a-zA-Z0-9_-]/g, '-')}`;
+const metricColumns = metrics.length >= 4 ? 'md:grid-cols-4' : metrics.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2';
+---
+
+<MarkdownLayout
+	title={title}
+	description={description}
+	meta={[role, formatProjectPeriod(date, endDate)]}
+	tags={tags}
+	cover={cover && publicFileExists(cover) ? cover : undefined}
+	heroTransitionName={heroTransitionName}
+>
+	<Fragment slot="before">
+		{metrics.length > 0 && (
+			<div class:list={['mt-10 grid grid-cols-2 gap-3', metricColumns]}>
+				{metrics.map((metric) => (
+					<div class="rounded-lg border border-white/10 bg-white/[0.03] p-5">
+						<p class="text-2xl font-semibold text-white">{metric.value}</p>
+						<p class="mt-2 text-sm leading-6 text-zinc-400">{metric.label}</p>
+					</div>
+				))}
+			</div>
+		)}
+		{stack.length > 0 && (
+			<div class="mt-8">
+				<p class="text-sm font-medium uppercase tracking-[0.24em] text-zinc-500">{ui.projectStackLabel}</p>
+				<div class="mt-3 flex flex-wrap gap-2">
+					{stack.map((item) => (
+						<span class="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-300">{item}</span>
+					))}
+				</div>
+			</div>
+		)}
+		{(url || repo) && (
+			<div class="mt-8 flex flex-wrap gap-3">
+				{url && (
+					<a href={url} target="_blank" rel="noreferrer" class="rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition hover:bg-zinc-200">
+						{ui.projectLiveCta}
+					</a>
+				)}
+				{repo && (
+					<a href={repo} target="_blank" rel="noreferrer" class="rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-white transition hover:border-white/40 hover:bg-white/10">
+						{ui.projectRepoCta}
+					</a>
+				)}
+			</div>
+		)}
+		{videos.length > 0 && (
+			<div class="mt-10">
+				<p class="text-sm font-medium uppercase tracking-[0.24em] text-zinc-500">{ui.projectVideosLabel}</p>
+				<div class="mt-4 grid gap-6">
+					{videos.map((video) => <VideoEmbed video={video} />)}
+				</div>
+			</div>
+		)}
+	</Fragment>
+
+	<slot />
+
+	<Fragment slot="after">
+		{gallery.length > 0 && (
+			<section class="mt-12 border-t border-white/10 pt-8">
+				<h2 class="text-2xl font-semibold text-white">{ui.projectGalleryLabel}</h2>
+				<div class="mt-4 grid gap-4 sm:grid-cols-2">
+					{gallery.map((image) => (
+						<a href={image.src} target="_blank" rel="noreferrer" class="group block">
+							<img
+								src={image.src}
+								alt={image.alt}
+								class="aspect-[4/3] w-full rounded-lg border border-white/10 bg-zinc-900 object-cover transition group-hover:border-white/30"
+								loading="lazy"
+								decoding="async"
+							/>
+							<p class="mt-2 text-sm leading-6 text-zinc-400">{image.alt}</p>
+						</a>
+					))}
+				</div>
+			</section>
+		)}
+	</Fragment>
+</MarkdownLayout>

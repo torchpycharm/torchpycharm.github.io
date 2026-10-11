@@ -1,0 +1,37 @@
+---
+import { videoEmbedSrc, videoFileType, videoIframeAllow } from '../utils/video.mjs';
+
+type Video =
+	| { type: 'bilibili'; id: string; title?: string }
+	| { type: 'youtube'; id: string; title?: string }
+	| { type: 'file'; src: string; poster?: string; title?: string };
+
+interface Props {
+	video: Video;
+}
+
+const { video } = Astro.props;
+const fallbackTitles = { bilibili: 'Bilibili video', youtube: 'YouTube video', file: 'Video' };
+const title = video.title ?? fallbackTitles[video.type];
+---
+
+<figure>
+	<div class="aspect-video overflow-hidden rounded-lg border border-white/10 bg-zinc-900">
+		{video.type === 'file' ? (
+			<video class="h-full w-full bg-black object-contain" controls preload="metadata" playsinline poster={video.poster} aria-label={title}>
+				<source src={video.src} type={videoFileType(video.src)} />
+			</video>
+		) : (
+			<iframe
+				class="h-full w-full"
+				src={videoEmbedSrc(video)}
+				title={title}
+				loading="lazy"
+				allow={videoIframeAllow}
+				allowfullscreen
+				referrerpolicy="strict-origin-when-cross-origin"
+			></iframe>
+		)}
+	</div>
+	{video.title && <figcaption class="mt-3 text-sm leading-6 text-zinc-500">{video.title}</figcaption>}
+</figure>

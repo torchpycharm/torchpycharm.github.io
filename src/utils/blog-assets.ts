@@ -1,10 +1,11 @@
-import { readdirSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { extname, join, relative, resolve } from 'node:path';
 
 const blogDir = resolve('src/content/blog');
 const imageExtensions = new Set(['.avif', '.gif', '.jpeg', '.jpg', '.png', '.svg', '.webp']);
 
 function getImageFiles(dir: string): string[] {
+	if (!existsSync(dir)) return [];
 	return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
 		const path = join(dir, entry.name);
 		if (entry.isDirectory()) return getImageFiles(path);

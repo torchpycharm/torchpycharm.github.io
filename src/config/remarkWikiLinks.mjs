@@ -1,10 +1,12 @@
-import { readdirSync } from 'node:fs';
-import { extname, join, relative, resolve } from 'node:path';
+import { existsSync, readdirSync } from 'node:fs';
+import { dirname, extname, join, relative, resolve } from 'node:path';
+import { parseVideoUrl, videoEmbedSrc, videoFileExtensions, videoIframeAllow } from '../utils/video.mjs';
 
 const wikiLinkPattern = /(!?)\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
 const blogDir = resolve('src/content/blog');
 const imageExtensions = new Set(['.avif', '.gif', '.jpeg', '.jpg', '.png', '.svg', '.webp']);
-const assetExtensions = new Set([...imageExtensions, '.pdf']);
+const videoExtensions = new Set(videoFileExtensions);
+const assetExtensions = new Set([...imageExtensions, ...videoExtensions, '.pdf']);
 
 function slugifyContentPath(value) {
 	return value
@@ -29,6 +31,8 @@ function slugifyHeading(value) {
 }
 
 function readMarkdownFiles(dir) {
+	if (!existsSync(dir)) return [];
+
 	return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
 		const path = join(dir, entry.name);
 		if (entry.isDirectory()) return readMarkdownFiles(path);
@@ -37,6 +41,8 @@ function readMarkdownFiles(dir) {
 }
 
 function readAssetFiles(dir) {
+	if (!existsSync(dir)) return [];
+
 	return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
 		const path = join(dir, entry.name);
 		if (entry.isDirectory()) return readAssetFiles(path);
@@ -149,14 +155,17 @@ function createLinkNode(target, label, resolveWikiTarget, resolveAssetTarget) {
 	};
 }
 
+// `![[file]]` embeds. Video files also come out as image nodes here; embedVideos() turns them into players.
 function createImageNode(target, label, resolveAssetTarget) {
-	const assetPath = resolveAssetTarget(target.trim().replace(/^\/+|\/+$/g, ''));
+	const cleanTarget = target.trim().replace(/^\/+|\/+$/g, '');
+	const assetPath = resolveAssetTarget(cleanTarget);
+	const isVideo = videoExtensions.has(extname(cleanTarget).toLowerCase());
 
 	return {
 		type: 'image',
 		url: `/blog-assets/${encodePath(assetPath)}`,
 		title: null,
-		alt: label?.trim() || target.trim(),
+		alt: label?.trim() || (isVideo ? '' : target.trim()),
 	};
 }
 
@@ -174,7 +183,7 @@ function transformTextNode(node, resolveWikiTarget, resolveAssetTarget) {
 		}
 
 		if (match[1] === '!') {
-			children.push(createImageNode(match[2], match[3] ?? match[2], resolveAssetTarget));
+			children.push(createImageNode(match[2], match[3], resolveAssetTarget));
 		} else {
 			children.push(createLinkNode(match[2], match[3] ?? match[2], resolveWikiTarget, resolveAssetTarget));
 		}
@@ -220,11 +229,139 @@ function visit(node, resolveWikiTarget, resolveAssetTarget, parent) {
 	if (parent) parent.children = parent.children;
 }
 
+function isBlankInline(node) {
+	return node.type === 'break' || (node.type === 'text' && node.value.trim() === '');
+}
+
+function createVideoFigure(player, caption) {
+	const children = [{ type: 'element', tagName: 'div', properties: { className: ['video-frame'] }, children: [player] }];
+
+	if (caption) {
+		children.push({ type: 'element', tagName: 'figcaption', properties: {}, children: [{ type: 'text', value: caption }] });
+	}
+
+	return {
+		type: 'videoEmbed',
+		children: [],
+		data: { hName: 'figure', hProperties: { className: ['video-embed'] }, hChildren: children },
+	};
+}
+
+function createPlayerFigure(video) {
+	return createVideoFigure({
+		type: 'element',
+		tagName: 'iframe',
+		properties: {
+			src: videoEmbedSrc(video),
+			title: video.type === 'bilibili' ? 'Bilibili video' : 'YouTube video',
+			loading: 'lazy',
+			allow: videoIframeAllow,
+			allowFullScreen: true,
+			referrerPolicy: 'strict-origin-when-cross-origin',
+		},
+		children: [],
+	});
+}
+
+function createFileVideoFigure(src, label) {
+	return createVideoFigure(
+		{
+			type: 'element',
+			tagName: 'video',
+			properties: { src, controls: true, preload: 'metadata', playsInline: true, ariaLabel: label || undefined },
+			children: [],
+		},
+		label,
+	);
+}
+
+function isVideoImage(node) {
+	return node.type === 'image' && videoExtensions.has(extname(node.url.split(/[?#]/)[0]).toLowerCase());
+}
+
+// Absolute URLs and /public paths are used as is; a relative path points at a
+// file next to the post, which is served through /blog-assets/.
+function resolveVideoSrc(node, file) {
+	const { url } = node;
+	if (/^(https?:)?\/\//.test(url) || url.startsWith('/')) return url;
+
+	const markdownPath = file?.path ?? file?.history?.[0];
+	const assetPath = markdownPath ? relative(blogDir, resolve(dirname(markdownPath), decodeURI(url))).replace(/\\/g, '/') : '..';
+
+	if (assetPath.startsWith('..')) {
+		const message = `Relative video path "${url}" only works for posts under src/content/blog. Put the file in public/ and reference it by absolute path, e.g. /projects/<slug>/demo.mp4.`;
+		// Astro's content loader logs render errors and carries on, which would publish
+		// the page without its body. Make the build exit non-zero instead.
+		process.exitCode = 1;
+		if (file) file.fail(message, node);
+		throw new Error(message);
+	}
+
+	return `/blog-assets/${encodePath(assetPath)}`;
+}
+
+// A Bilibili or YouTube URL that is the whole paragraph and written bare (not `[label](url)`).
+function getStandaloneVideoLink(paragraph) {
+	const children = paragraph.children.filter((child) => !isBlankInline(child));
+	if (children.length !== 1) return undefined;
+
+	const [child] = children;
+	if (child.type === 'text') return parseVideoUrl(child.value.trim());
+	if (child.type !== 'link') return undefined;
+
+	const sourceLength = child.position ? child.position.end.offset - child.position.start.offset : undefined;
+	const label = child.children.length === 1 && child.children[0].type === 'text' ? child.children[0].value : undefined;
+	const isBare = sourceLength !== undefined ? sourceLength <= child.url.length + 2 : label === child.url;
+
+	return isBare ? parseVideoUrl(child.url) : undefined;
+}
+
+function transformParagraph(paragraph, file, isTopLevel) {
+	if (isTopLevel) {
+		const video = getStandaloneVideoLink(paragraph);
+		if (video) return [createPlayerFigure(video)];
+	}
+
+	if (!paragraph.children.some(isVideoImage)) return [paragraph];
+
+	// A <figure> cannot sit inside a <p>, so split the paragraph around each video.
+	const output = [];
+	let inline = [];
+	const flushInline = () => {
+		if (inline.some((child) => !isBlankInline(child))) output.push({ type: 'paragraph', children: inline });
+		inline = [];
+	};
+
+	paragraph.children.forEach((child) => {
+		if (!isVideoImage(child)) {
+			inline.push(child);
+			return;
+		}
+
+		flushInline();
+		output.push(createFileVideoFigure(resolveVideoSrc(child, file), child.alt?.trim()));
+	});
+	flushInline();
+
+	return output;
+}
+
+function embedVideos(node, file, isTopLevel = true) {
+	if (!node || typeof node !== 'object' || !Array.isArray(node.children)) return;
+
+	node.children = node.children.flatMap((child) => {
+		if (child.type === 'paragraph') return transformParagraph(child, file, isTopLevel);
+		embedVideos(child, file, false);
+		return [child];
+	});
+}
+
 export default function remarkWikiLinks() {
 	const resolveWikiTarget = createWikiResolver();
 	const resolveAssetTarget = createAssetResolver();
 
-	return (tree) => {
+	return (tree, file) => {
 		visit(tree, resolveWikiTarget, resolveAssetTarget);
+		embedVideos(tree, file);
 	};
 }

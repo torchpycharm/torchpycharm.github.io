@@ -9,6 +9,8 @@ interface Props {
 	title: string;
 	description: string;
 	date?: Date;
+	/** Replaces the date and reading stats line, e.g. a project's role and period. */
+	meta?: string[];
 	tags?: string[];
 	cover?: string;
 	readingStats?: ReadingStats;
@@ -16,16 +18,18 @@ interface Props {
 	heroTransitionName?: string;
 }
 
-const { title, description, date, tags = [], cover, readingStats, backlinks = [], heroTransitionName } = Astro.props;
+const { title, description, date, meta, tags = [], cover, readingStats, backlinks = [], heroTransitionName } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const siteConfig = getSiteConfig(locale);
 const imageAssets = getBlogImageAssets();
 const formattedStats = readingStats ? formatReadingStats(readingStats, locale) : undefined;
-const formattedDate = date?.toLocaleDateString('zh-CN', {
+const formattedDate = date?.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en', {
 	year: 'numeric',
 	month: 'long',
 	day: 'numeric',
+	timeZone: 'UTC',
 });
+const metaItems = meta ?? [formattedDate, formattedStats?.wordCount, formattedStats?.readingTime].filter((item) => item !== undefined);
 ---
 
 <Layout title={title} description={description}>
@@ -35,11 +39,9 @@ const formattedDate = date?.toLocaleDateString('zh-CN', {
 		</a>
 		<header class="mt-10 border-b border-white/10 pb-10">
 			<div class="flex flex-wrap gap-3 text-sm text-zinc-500">
-				{formattedDate && <span>{formattedDate}</span>}
-				{formattedStats && <span>{formattedStats.wordCount}</span>}
-				{formattedStats && <span>{formattedStats.readingTime}</span>}
+				{metaItems.map((item) => <span>{item}</span>)}
 			</div>
-			<h1 class="mt-4 text-4xl font-semibold tracking-normal text-white md:text-6xl" transition:name={heroTransitionName}>{title}</h1>
+			<h1 class="mt-4 break-keep wrap-anywhere text-4xl font-semibold tracking-normal text-white md:text-6xl" transition:name={heroTransitionName}>{title}</h1>
 			<p class="mt-5 text-lg leading-8 text-zinc-400">{description}</p>
 			{tags.length > 0 && (
 				<div class="mt-6 flex flex-wrap gap-2">
@@ -58,9 +60,11 @@ const formattedDate = date?.toLocaleDateString('zh-CN', {
 				/>
 			)}
 		</header>
+		<slot name="before" />
 		<div class="prose-content mt-10">
 			<slot />
 		</div>
+		<slot name="after" />
 		{backlinks.length > 0 && (
 			<section class="mt-12 border-t border-white/10 pt-8">
 				<h2 class="text-2xl font-semibold text-white">{locale === 'zh' ? '反向链接' : 'Backlinks'}</h2>
