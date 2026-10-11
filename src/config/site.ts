@@ -119,6 +119,15 @@ const siteConfigs = {
 			backToList: "返回列表",
 			socialCardCta: "查看主页",
 		},
+		status: {
+			title: "当前状态",
+			current: "正在：在 NUS 读计算机工程硕士",
+			next: "接下来：补上外骨骼、四旋翼和导盲小车的项目页",
+			note: "最近完成：可穿戴 ECG 端侧数据完整性检测",
+			timeLabel: "我的当前时间",
+			timeZone: "Asia/Singapore",
+			dateLocale: "zh-CN",
+		},
 		home: {
 			eyebrowNote: "本科毕业于电子科技大学软件工程专业，现在新加坡国立大学读计算机工程硕士。",
 			headline: "在资源受限的\u200B硬件上，\u200B把算法\u200B真正跑起来。",
@@ -282,8 +291,11 @@ const siteConfigs = {
 		},
 		skills: skillsZh,
 		resume: {
-			summary: "方向是嵌入式软件与端侧机器学习。本科毕业于电子科技大学软件工程专业（GPA 3.80 / 4.00），现在新加坡国立大学攻读计算机工程硕士。做过外骨骼机器人的步态识别与电机控制、nRF5340 上的端侧心电数据完整性检测，以及基于 STM32 的四旋翼飞控。",
+			summary: "方向是嵌入式软件与端侧机器学习。做过外骨骼机器人的步态识别与电机控制、nRF5340 上的端侧心电数据完整性检测，以及基于 STM32 的四旋翼飞控。",
 			details: [
+				{ label: "硕士", value: "新加坡国立大学（NUS）· 计算机工程（Master of Science in Computer Engineering）· 2026 – 至今" },
+				{ label: "本科", value: "电子科技大学（985 / 211 / 双一流，成都）· 信息与软件工程学院 · 软件工程 · 2022.09 – 2026.06 · GPA 3.80 / 4.00" },
+				{ label: "英语", value: "CET-6 · IELTS" },
 				{ label: "所在地", value: "新加坡" },
 				{ label: "方向", value: "嵌入式软件 / 端侧机器学习（TinyML / 边缘计算）/ RTOS / 机器人与电机控制" },
 			],
@@ -305,29 +317,6 @@ const siteConfigs = {
 				"学院学生科助理",
 			],
 			sections: [
-				{
-					title: "教育",
-					items: [
-						{
-							period: "2026 – 至今",
-							title: "计算机工程硕士（Master of Science in Computer Engineering）",
-							org: "新加坡国立大学（NUS）",
-							description: "",
-							bullets: [],
-							points: [],
-							link: [],
-						},
-						{
-							period: "2022.09 – 2026.06",
-							title: "软件工程 本科",
-							org: "电子科技大学（985 / 211 / 双一流）· 信息与软件工程学院 · 成都",
-							description: "全日制本科。",
-							bullets: [],
-							points: ["GPA 3.80 / 4.00", "CET-6", "IELTS"],
-							link: [],
-						},
-					],
-				},
 				{
 					title: "经历",
 					items: [
@@ -433,6 +422,15 @@ const siteConfigs = {
 			projectGalleryLabel: "Gallery",
 			backToList: "Back to list",
 			socialCardCta: "View profile",
+		},
+		status: {
+			title: "Status",
+			current: "Now: MSc in Computer Engineering at NUS",
+			next: "Next: project pages for the exoskeleton, quadcopter, and guide vehicle",
+			note: "Recently finished: on-device ECG data integrity detection",
+			timeLabel: "My local time",
+			timeZone: "Asia/Singapore",
+			dateLocale: "en-US",
 		},
 		home: {
 			eyebrowNote: "Software Engineering graduate from UESTC, now pursuing an MSc in Computer Engineering at the National University of Singapore.",
@@ -597,8 +595,11 @@ const siteConfigs = {
 		},
 		skills: skillsEn,
 		resume: {
-			summary: "Focused on embedded software and on-device machine learning. Bachelor's in Software Engineering from UESTC (GPA 3.80 / 4.00), now pursuing an MSc in Computer Engineering at NUS. I have worked on gait recognition and motor control for an exoskeleton robot, on-device ECG data integrity detection on the nRF5340, and an STM32 quadcopter flight controller.",
+			summary: "Focused on embedded software and on-device machine learning. I have worked on gait recognition and motor control for an exoskeleton robot, on-device ECG data integrity detection on the nRF5340, and an STM32 quadcopter flight controller.",
 			details: [
+				{ label: "Master's", value: "National University of Singapore (NUS) · MSc in Computer Engineering · 2026 – Present" },
+				{ label: "Bachelor's", value: "University of Electronic Science and Technology of China (UESTC; Project 985 / Project 211 / Double First-Class), Chengdu · School of Information and Software Engineering · Software Engineering · 2022.09 – 2026.06 · GPA 3.80 / 4.00" },
+				{ label: "English", value: "CET-6 · IELTS" },
 				{ label: "Location", value: "Singapore" },
 				{ label: "Focus", value: "Embedded software / On-device ML (TinyML / edge computing) / RTOS / Robotics & motor control" },
 			],
@@ -620,29 +621,6 @@ const siteConfigs = {
 				"Assistant, School Student Affairs Office",
 			],
 			sections: [
-				{
-					title: "Education",
-					items: [
-						{
-							period: "2026 – Present",
-							title: "Master of Science in Computer Engineering",
-							org: "National University of Singapore (NUS)",
-							description: "",
-							bullets: [],
-							points: [],
-							link: [],
-						},
-						{
-							period: "2022.09 – 2026.06",
-							title: "Bachelor's in Software Engineering",
-							org: "University of Electronic Science and Technology of China (UESTC; Project 985 / Project 211 / Double First-Class) · School of Information and Software Engineering · Chengdu",
-							description: "Full-time undergraduate program.",
-							bullets: [],
-							points: ["GPA 3.80 / 4.00", "CET-6", "IELTS"],
-							link: [],
-						},
-					],
-				},
 				{
 					title: "Experience",
 					items: [

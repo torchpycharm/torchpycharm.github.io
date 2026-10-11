@@ -289,11 +289,11 @@ public/projects/ecg-integrity/demo.mp4         →  /projects/ecg-integrity/demo
 | 字段 | 显示位置 |
 | --- | --- |
 | `summary` | 左侧 Profile 卡片里的简介 |
-| `details` | 简介下面的「所在地」「方向」 |
+| `details` | 简介下面的几行：硕士、本科、英语、所在地、方向。教育经历写在这里，不单独成段 |
 | `links` | 左侧 Links 卡片 |
 | `files` | 「下载简历 PDF」按钮 |
 | `highlights` | 左侧 Highlights 卡片，放荣誉和职务 |
-| `sections` | 右侧的教育、经历、项目，每一段有若干 `items` |
+| `sections` | 右侧的经历、项目，每一段有若干 `items` |
 
 `sections` 里的每个条目都要写全这七个字段，没有内容就留空字符串或空数组：
 
@@ -331,10 +331,24 @@ public/projects/ecg-integrity/demo.mp4         →  /projects/ecg-integrity/demo
 
 - **精选项目：** 项目的 frontmatter 里写 `featured: true`。首页最多显示 3 个，按 `date` 从新到旧。想改数量，改 `pages.home.modules` 里 `projectGrid` 的 `limit`。
 - **最新笔记：** 自动显示最新的 3 篇已发布文章。一篇都没有时这一块不显示。
-- **大标题换行：** 中文大标题只会在标点、空格和 `​` 处换行。`​` 是一个看不见的「可以在这里换行」标记，放在词组之间，避免一个词被拆成两行。想强制换行用 `\n`。
+- **状态卡：** 首页左上角那张卡片，对应 `status` 字段。`title` 是标题，`current`、`next`、`note` 是三行状态，想到什么就改什么。`timeZone` 决定最后一行显示哪个时区的当前时间，留空字符串就不显示这一行。
 
   ```ts
-  headline: "在资源受限的​硬件上，​把算法​真正跑起来。",
+  status: {
+  	title: "当前状态",
+  	current: "正在：在 NUS 读计算机工程硕士",
+  	next: "接下来：补上外骨骼、四旋翼和导盲小车的项目页",
+  	note: "最近完成：可穿戴 ECG 端侧数据完整性检测",
+  	timeLabel: "我的当前时间",
+  	timeZone: "Asia/Singapore",
+  	dateLocale: "zh-CN",
+  },
+  ```
+
+- **标题换行：** 首页那句标语（`home.headline`）和各处的中文标题只会在标点、空格和 `\u200B` 处换行。`\u200B` 是一个看不见的「可以在这里换行」标记，放在词组之间，避免窄屏上一个词被拆成两行。想强制换行用 `\n`。
+
+  ```ts
+  headline: "在资源受限的\u200B硬件上，\u200B把算法\u200B真正跑起来。",
   ```
 
 - **快捷入口：** `quickLinks`。**方向条：** `pages.home.modules` 里 `linkGrid` 的 `items`。

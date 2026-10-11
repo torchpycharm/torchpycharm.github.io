@@ -8,10 +8,7 @@ const atlasRepo = 'https://github.com/luckykevvv/Atlas';
 
 <footer class="border-t border-white/10">
 	<div class="mx-auto grid max-w-6xl gap-8 px-5 py-10 md:grid-cols-[1fr_auto] md:items-end">
-		<div>
-			<p class="text-lg font-semibold text-white">{siteConfig.name}</p>
-			<p class="mt-2 max-w-xl text-sm leading-6 text-zinc-400">{siteConfig.description}</p>
-		</div>
+		<p class="text-lg font-semibold text-white">{siteConfig.name}</p>
 		<div class="flex flex-wrap gap-3">
 			{siteConfig.socials.map((item) => (
 				<a href={item.href} class="inline-flex items-center gap-2 text-sm text-zinc-400 transition hover:text-white" target="_blank">
