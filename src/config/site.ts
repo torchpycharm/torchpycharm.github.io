@@ -20,7 +20,6 @@ const shared = {
 	email: "luckykevvv@gmail.com",
 	emailIcon: "@",
 	avatar: "/avatar.png",
-	visitorCount: "0001",
 	background: {
 		image: "",
 		blur: "0px",
@@ -40,8 +39,6 @@ const shared = {
 	},
 	socials: [
 		{ label: "GitHub", href: "https://github.com/luckykevvv", icon: "GH" },
-		{ label: "B站", href: "https://space.bilibili.com/285705387", icon: "B" },
-		{ label: "Folo", href: "https://folo.is", icon: "F" },
 	],
 };
 
@@ -66,16 +63,6 @@ const siteConfigs = {
 			{ label: "简历", href: "/resume", icon: "历" },
 			{ label: "联系", href: "/contact", icon: "@" },
 		],
-		today: {
-			title: "今日小状态",
-			current: "正在：整理课程笔记",
-			next: "稍后：改一个小项目",
-			note: "今日目标：把 README 写明白",
-			timeLabel: "我的当前时间",
-			timeZone: "Asia/Shanghai",
-			dateLocale: "zh-CN",
-			greetings: ["凌晨好", "早上好", "上午好", "中午好", "下午好", "晚上好"],
-		},
 		ui: {
 			headerCta: "打个招呼",
 			projectCta: "查看项目 ->",
@@ -86,7 +73,6 @@ const siteConfigs = {
 		},
 		home: {
 			eyebrowNote: "一个学生的主页入口，放作品、笔记和正在折腾的东西。",
-			visitorText: "访客编号 #{count}，欢迎翻翻这个小角落",
 			headline: "把上课、折腾和突然冒出的想法都放在这里。",
 			intro: "这是一个更适合学生使用的 Astro 个人主页模板：可以放课程记录、项目作品、博客笔记，也可以塞一点只有自己觉得好玩的入口。",
 			primaryCta: { label: "看看项目", href: "/projects" },
@@ -146,19 +132,6 @@ const siteConfigs = {
 						},
 					},
 					{
-						type: "gameList",
-						props: {
-							title: "主页可以放什么",
-							description: "这些模块都可以在 src/config/site.ts 里替换成自己的栏目。",
-							items: [
-								{ label: "学习记录", description: "记录课程、阅读、实验和阶段性复盘。" },
-								{ label: "项目作品", description: "展示课程作业、开源项目和个人练手。" },
-								{ label: "博客笔记", description: "用 Markdown 把想法留下来，支持标签和双链。" },
-								{ label: "简历经历", description: "教育背景、技能、项目经验和可下载的 PDF 简历。" },
-							],
-						},
-					},
-					{
 						type: "skillCloud",
 						props: {
 							title: "技能栈",
@@ -198,6 +171,7 @@ const siteConfigs = {
 								search: "搜索标题、摘要或标签",
 								all: "全部",
 								empty: "没有找到符合条件的笔记。",
+								noPosts: "还没有发布文章，写好之后会出现在这里。",
 							},
 						},
 					},
@@ -206,6 +180,7 @@ const siteConfigs = {
 			graph: {
 				title: "知识图谱",
 				description: "由博客标签和双链生成的知识图谱。",
+				controls: { repulsion: "斥力", distance: "间距", motion: "动态" },
 				modules: [
 					{
 						type: "knowledgeGraph",
@@ -213,6 +188,7 @@ const siteConfigs = {
 							kicker: "Graph",
 							title: "知识图谱",
 							description: "每篇笔记都是一个节点，在这里可以看见整个知识库的结构。",
+							emptyText: "还没有可以展示的笔记。发布文章并用 [[双链]] 互相引用后，这里会生成图谱。",
 						},
 					},
 				],
@@ -245,7 +221,7 @@ const siteConfigs = {
 						props: {
 							kicker: "Contact",
 							heading: "关于项目、写作或个人网站的想法，欢迎来信。",
-							intro: "把你的 Email、GitHub、Bilibili、Folo、Telegram 或其他公开链接放在这里。",
+							intro: "邮件是最稳妥的联系方式；代码和项目在 GitHub。",
 						},
 					},
 					{ type: "contactPanel" },
@@ -315,16 +291,6 @@ const siteConfigs = {
 			{ label: "Resume", href: "/resume", icon: "R" },
 			{ label: "Contact", href: "/contact", icon: "@" },
 		],
-		today: {
-			title: "Today",
-			current: "Now: organizing course notes",
-			next: "Next: tweak a small project",
-			note: "Goal: make the README clearer",
-			timeLabel: "My current time",
-			timeZone: "Asia/Shanghai",
-			dateLocale: "en-US",
-			greetings: ["Good late night", "Good early morning", "Good morning", "Good noon", "Good afternoon", "Good evening"],
-		},
 		ui: {
 			headerCta: "Say hi",
 			projectCta: "View project ->",
@@ -335,7 +301,6 @@ const siteConfigs = {
 		},
 		home: {
 			eyebrowNote: "A student homepage hub for projects, notes, and things in progress.",
-			visitorText: "Visitor #{count}, welcome to this small corner",
 			headline: "Putting coursework, experiments, and random ideas in one place.",
 			intro: "A student-friendly Astro personal website template: course records, project portfolios, blog notes, and a few things only you find interesting.",
 			primaryCta: { label: "View projects", href: "/projects" },
@@ -395,19 +360,6 @@ const siteConfigs = {
 						},
 					},
 					{
-						type: "gameList",
-						props: {
-							title: "What can go on the homepage",
-							description: "These modules can all be replaced with your own sections in src/config/site.ts.",
-							items: [
-								{ label: "Study Records", description: "Record courses, reading, experiments, and periodic reviews." },
-								{ label: "Project Portfolio", description: "Showcase coursework, open-source projects, and personal practice." },
-								{ label: "Blog Notes", description: "Capture ideas in Markdown, with support for tags and wiki links." },
-								{ label: "Resume Experience", description: "Education background, skills, project experience, and downloadable PDF resume." },
-							],
-						},
-					},
-					{
 						type: "skillCloud",
 						props: {
 							title: "Skills",
@@ -447,6 +399,7 @@ const siteConfigs = {
 								search: "Search title, summary, or tags",
 								all: "All",
 								empty: "No notes match the current filters.",
+								noPosts: "No posts published yet. They will show up here once written.",
 							},
 						},
 					},
@@ -455,6 +408,7 @@ const siteConfigs = {
 			graph: {
 				title: "Knowledge Graph",
 				description: "A knowledge graph generated from wiki links in blog posts.",
+				controls: { repulsion: "Repulsion", distance: "Distance", motion: "Motion" },
 				modules: [
 					{
 						type: "knowledgeGraph",
@@ -462,6 +416,7 @@ const siteConfigs = {
 							kicker: "Graph",
 							title: "Knowledge Graph",
 							description: "Each note is a node. Wiki links create connections between notes.",
+							emptyText: "No notes to show yet. Once posts are published and connected with [[wiki links]], the graph will appear here.",
 						},
 					},
 				],
@@ -494,7 +449,7 @@ const siteConfigs = {
 						props: {
 							kicker: "Contact",
 							heading: "Send a note about projects, writing, or personal websites.",
-							intro: "Add your email, GitHub, Bilibili, Folo, Telegram, or any public contact link here.",
+							intro: "Email is the most reliable way to reach me; code and projects live on GitHub.",
 						},
 					},
 					{ type: "contactPanel" },
@@ -564,7 +519,7 @@ export function localizePath(locale: Locale, path: string): string {
 }
 
 function localizeModuleLinks(module: { type: string; props?: Record<string, unknown> }, locale: Locale) {
-	if (module.type === "gameList" || module.type === "linkGrid") {
+	if (module.type === "linkGrid") {
 		const props = module.props as { items?: Array<string | { href?: string }> } | undefined;
 		return {
 			...module,

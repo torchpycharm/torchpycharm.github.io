@@ -17,9 +17,11 @@ const posts = (await getCollection('blog'))
 	.slice(0, limit);
 ---
 
-<section class="mx-auto max-w-6xl px-5 py-16">
-	<SectionHeading kicker={kicker} title={title} description={description} />
-	<div>
-		{posts.map((post) => <BlogCard post={post} />)}
-	</div>
-</section>
+{posts.length > 0 && (
+	<section class="mx-auto max-w-6xl px-5 py-16">
+		<SectionHeading kicker={kicker} title={title} description={description} />
+		<div>
+			{posts.map((post) => <BlogCard post={post} />)}
+		</div>
+	</section>
+)}

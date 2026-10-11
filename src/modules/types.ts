@@ -1,11 +1,3 @@
-export type GameItem = {
-	label: string;
-	description?: string;
-	gameId?: number | string;
-	href?: string;
-	icon?: string;
-};
-
 export type AboutIntroModule = {
 	type: 'aboutIntro';
 	props: {
@@ -15,20 +7,6 @@ export type AboutIntroModule = {
 		profileLabel: string;
 		profile: string;
 		paragraphs: readonly string[];
-	};
-};
-
-export type SteamProfileModule = {
-	type: 'steamProfile';
-	props?: Record<string, never>;
-};
-
-export type GameListModule = {
-	type: 'gameList';
-	props: {
-		title: string;
-		description?: string;
-		items: readonly (string | GameItem)[];
 	};
 };
 
@@ -47,9 +25,7 @@ export type ContactPanelModule = {
 
 export type HomeHeroModule = {
 	type: 'homeHero';
-	props?: {
-		steamLoadingText?: string;
-	};
+	props?: Record<string, never>;
 };
 
 export type LinkGridModule = {
@@ -108,6 +84,7 @@ export type BlogIndexModule = {
 			search: string;
 			all: string;
 			empty: string;
+			noPosts: string;
 		};
 	};
 };
@@ -118,6 +95,7 @@ export type KnowledgeGraphModule = {
 		kicker?: string;
 		title: string;
 		description?: string;
+		emptyText: string;
 	};
 };
 
@@ -150,8 +128,6 @@ export type RichTextModule = {
 
 export type PageModule =
 	| AboutIntroModule
-	| SteamProfileModule
-	| GameListModule
 	| SkillCloudModule
 	| ContactPanelModule
 	| HomeHeroModule

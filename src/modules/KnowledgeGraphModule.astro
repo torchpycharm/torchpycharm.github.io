@@ -9,9 +9,10 @@ interface Props {
 	kicker?: string;
 	title: string;
 	description?: string;
+	emptyText: string;
 }
 
-const { description, kicker, title } = Astro.props;
+const { description, emptyText, kicker, title } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const siteConfig = getSiteConfig(locale);
 const page = siteConfig.pages.graph;
@@ -22,5 +23,9 @@ graph.nodes = graph.nodes.map((node) => (node.href ? { ...node, href: localizePa
 
 <section class="mx-auto max-w-6xl px-5 py-20 md:py-28">
 	<SectionHeading kicker={kicker} title={title} description={description} />
-	<KnowledgeGraph graph={graph} labels={page.controls} />
+	{graph.nodes.length > 0 ? (
+		<KnowledgeGraph graph={graph} labels={page.controls} />
+	) : (
+		<p class="rounded-lg border border-white/10 bg-white/[0.03] p-6 text-sm text-zinc-400">{emptyText}</p>
+	)}
 </section>

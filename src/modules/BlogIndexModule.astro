@@ -11,6 +11,7 @@ interface Props {
 		search: string;
 		all: string;
 		empty: string;
+		noPosts: string;
 	};
 }
 
@@ -22,5 +23,9 @@ const posts = (await getCollection('blog'))
 
 <section class="mx-auto max-w-5xl px-5 py-20 md:py-28">
 	<SectionHeading kicker={kicker} title={title} description={description} />
-	<BlogList posts={posts} labels={labels} />
+	{posts.length > 0 ? (
+		<BlogList posts={posts} labels={labels} />
+	) : (
+		<p class="rounded-lg border border-white/10 bg-white/[0.03] p-6 text-sm text-zinc-400">{labels.noPosts}</p>
+	)}
 </section>

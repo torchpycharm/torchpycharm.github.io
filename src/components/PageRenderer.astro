@@ -1,7 +1,5 @@
 ---
-import AboutGameList from './AboutGameList.astro';
 import ContactPanel from './ContactPanel.astro';
-import SteamProfileCard from './SteamProfileCard.astro';
 import AboutIntroModule from '../modules/AboutIntroModule.astro';
 import BlogIndexModule from '../modules/BlogIndexModule.astro';
 import BlogPreviewModule from '../modules/BlogPreviewModule.astro';
@@ -23,23 +21,19 @@ interface Props {
 	modules: readonly PageModule[];
 }
 
-const { locale, modules } = Astro.props;
+const { modules } = Astro.props;
 ---
 
 {modules.map((module) => {
 	switch (module.type) {
 		case 'aboutIntro':
 			return <AboutIntroModule {...module.props} />;
-		case 'steamProfile':
-			return <SteamProfileCard locale={locale} />;
-		case 'gameList':
-			return <AboutGameList {...module.props} />;
 		case 'skillCloud':
 			return <SkillCloudModule {...module.props} />;
 		case 'contactPanel':
 			return <ContactPanel />;
 		case 'homeHero':
-			return <HomeHeroModule {...module.props} />;
+			return <HomeHeroModule />;
 		case 'linkGrid':
 			return <LinkGridModule {...module.props} />;
 		case 'projectGrid':
