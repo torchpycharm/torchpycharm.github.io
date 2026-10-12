@@ -135,7 +135,7 @@ const siteConfigs = {
 		pages: {
 			home: {
 				title: "首页",
-				description: "stardust的个人网站：嵌入式软件、端侧机器学习、RTOS、机器人与电机控制方向的项目、笔记和简历。",
+				description: "stardust的个人网站：NUS RM电控组的项目、笔记和简历。",
 				modules: [
 					{ type: "homeHero" },
 					{ type: "linkGrid", props: { items: [
@@ -168,7 +168,7 @@ const siteConfigs = {
 			},
 			about: {
 				title: "关于我",
-				description: "张方宇：新加坡国立大学计算机工程硕士在读，本科毕业于电子科技大学软件工程专业，方向为嵌入式软件、端侧机器学习、RTOS、机器人与电机控制。",
+				description: "张方宇：新加坡国立大学计算机工程硕士在读，本科毕业于电子科技大学软件工程专业，嵌入式方向",
 				modules: [
 					{
 						type: "aboutIntro",
@@ -177,7 +177,7 @@ const siteConfigs = {
 							heading: "做嵌入式软件，把算法落到真实硬件上。",
 							intro: "嵌入式软件 · 端侧机器学习（TinyML / 边缘计算）· RTOS · 机器人与电机控制",
 							profileLabel: "Profile",
-							profile: "新加坡国立大学计算机工程硕士在读，本科毕业于电子科技大学软件工程专业。",
+							profile: "NUS·计算机工程·硕士\nUESTC·软件工程·本科",
 							paragraphs: [
 								"我叫张方宇，本科就读于电子科技大学信息与软件工程学院软件工程专业（2022.09 – 2026.06），目前在新加坡国立大学攻读计算机工程硕士（Master of Science in Computer Engineering）。方向是嵌入式软件、端侧机器学习（TinyML / 边缘计算）、RTOS，以及机器人与电机控制。",
 								"2025 年 1 月到 8 月，我在华西医院–商汤科技联合实验室做嵌入式软件开发，参与下肢柔性外骨骼机器人项目：实时步态分割、双环 PID 控制三相无刷电机、CAN 与 RabbitMQ 通信，以及用贝叶斯优化做个性化助力。",

@@ -34,4 +34,4 @@ npm run preview  # 预览构建结果
 
 ## 致谢与许可
 
-本站基于 [Atlas](https://github.com/luckykevvv/Atlas)（作者 luckykevvv）修改而来，沿用其 [GNU General Public License v3.0](./LICENSE) 许可。
+本站基于 [Atlas](https://github.com/luckykevvv/Atlas)（作者 luckykevvv）开发，沿用其 [GNU General Public License v3.0](./LICENSE) 许可。

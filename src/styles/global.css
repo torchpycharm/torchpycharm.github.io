@@ -19,6 +19,15 @@ body {
 	margin: 0;
 }
 
+/* Text written in site.ts or in frontmatter can use \n for a line break.
+   Only elements that hold plain text are affected, so icon + label rows and
+   Markdown bodies keep their normal wrapping. */
+@layer base {
+	main :where(p, h1, h2, h3, li, span, figcaption):not(:has(*)):not(.prose-content *) {
+		white-space: pre-line;
+	}
+}
+
 ::view-transition-old(page-content),
 ::view-transition-new(page-content) {
 	animation-duration: 420ms;
